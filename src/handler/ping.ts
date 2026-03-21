@@ -7,16 +7,18 @@ export default async (ctx: Context) => {
      * This is how to get either query param, route param or from request body.
      */
 
-    const { username, password } = ctx.params
+    const { role, username, email, password } = ctx.params
 
     /**
      * CRUD with User model
      */
 
-    // db.User.create()
-    // db.User.findOne()
-    // db.User.update
-    // db.User.destroy()
+    await db.User.create({
+        role,
+        username,
+        email,
+        password,
+    })
 
     /**
      * To access Request object
