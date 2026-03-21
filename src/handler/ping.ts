@@ -1,5 +1,6 @@
 import Context from '@/lib/context'
 import Exception from '@/lib/exception'
+import * as db from '@/lib/db'
 
 export default async (ctx: Context) => {
     /**
@@ -7,6 +8,15 @@ export default async (ctx: Context) => {
      */
 
     const { username, password } = ctx.params
+
+    /**
+     * CRUD with User model
+     */
+
+    // db.User.create()
+    // db.User.findOne()
+    // db.User.update
+    // db.User.destroy()
 
     /**
      * To access Request object
@@ -43,7 +53,7 @@ export default async (ctx: Context) => {
      * use ctx.send()
      */
 
-    ctx.send({ message: pong }, 404)
+    ctx.send({ message: 'pong' }, 404)
 
     /**
      * When executed, the returned object will be the JSON response.
