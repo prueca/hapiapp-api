@@ -1,19 +1,34 @@
 import sequelize from './sequelize'
 import { DataTypes } from 'sequelize'
 
-const User = sequelize.define('Users', {
-    role: {
-        type: DataTypes.STRING,
+const User = sequelize.define(
+    'user',
+    {
+        id: {
+            type: DataTypes.UUIDV4,
+            primaryKey: true,
+            allowNull: false,
+            defaultValue: DataTypes.UUIDV4,
+        },
+        role: {
+            type: DataTypes.STRING,
+        },
+        username: {
+            type: DataTypes.STRING,
+        },
+        companyCode: {
+            field: 'company_code',
+            type: DataTypes.STRING,
+        },
+        password: {
+            type: DataTypes.STRING,
+        },
     },
-    username: {
-        type: DataTypes.STRING,
+    {
+        freezeTableName: true,
+        tableName: 'user',
+        timestamps: true,
     },
-    email: {
-        type: DataTypes.STRING,
-    },
-    password: {
-        type: DataTypes.STRING,
-    },
-})
+)
 
 export default User
