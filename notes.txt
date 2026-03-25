@@ -1,6 +1,7 @@
 user_role
  - id
- - admin | user
+ - admin (franchise admin, dealer admin, distributor admin)
+   user (franchise user, dealer user, distributor user)
 
 user
  - id
@@ -10,12 +11,13 @@ user
  - username
  - password
  - user_role (fk)
+ - subordinate_id (user_id)
 
 account_type
  - id
  - distributor | dealer | franchisee
 
-account
+account (user may have many accounts)
  - id
  - name
  - address
@@ -23,6 +25,7 @@ account
  - ???_code
  - company_code
  - account_type (fk)
+ - user_id
 
 freezer_type
  - id
