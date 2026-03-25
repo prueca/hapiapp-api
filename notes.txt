@@ -1,0 +1,60 @@
+user_role
+ - id
+ - admin | user
+
+user
+ - id
+ - firstName
+ - middleName
+ - lastName
+ - username
+ - password
+ - user_role (fk)
+
+account_type
+ - id
+ - distributor | dealer | franchisee
+
+account
+ - id
+ - name
+ - address
+ - isr_code
+ - ???_code
+ - company_code
+ - account_type (fk)
+
+freezer_type
+ - id
+ - swing-up | curved-glass
+
+freezer_brand
+ - id
+ - name (aucma | haier | ? | ? )
+
+freezer
+ - id
+ - capacity
+ - freezer_brand (aucma | haier | ? | ? )
+ - freezer_type (fk)
+ - account_id (fk)
+
+cabcon_code (publish by distributor)
+ - id
+ - code_month (JANCABCON2024...)
+
+cabcon (freezer reporting, galing sa dealer at franchisee)
+ - id
+ - cabcon_code_id (fk)
+ - account_id (fk)
+ - freezer_id (fk)
+ - timestamp
+
+---
+2024FEBCAB
+ - f9cd3ed0-3823-4404-aeb2-c8a4c2cc8b58 (report id)
+ - f111392f-83b3-46b3-9a66-b2d16ac45554
+ - Wancavino-ID
+   - account details
+ - 123456
+   - freezer details
