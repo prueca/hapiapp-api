@@ -10,18 +10,29 @@ const User = sequelize.define(
             allowNull: false,
             defaultValue: DataTypes.UUIDV4,
         },
-        role: {
+        firstName: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        middleName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        lastName: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         username: {
             type: DataTypes.STRING,
-        },
-        companyCode: {
-            field: 'company_code',
-            type: DataTypes.STRING,
+            allowNull: false,
         },
         password: {
             type: DataTypes.STRING,
+            allowNull: false,
+        },
+        role: {
+            type: DataTypes.UUIDV4,
+            allowNull: false,
         },
     },
     {
