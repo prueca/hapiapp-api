@@ -1,49 +1,55 @@
-import { beforeAll, describe, expect, test } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import userGetAll from '@/lib/domains/user/userGetAll'
 import sequelize from '@/lib/db/sequelize'
 import seed from '~/mock/user.seed'
 
 describe('userGetAll', () => {
-    ;((beforeAll(async () => {
+    beforeAll(async () => {
         await sequelize.sync({ force: true })
         seed()
-    }),
-    test('returns an array of users', async () => {
+    })
+
+    afterAll(async () => {
+        await sequelize.close()
+    })
+
+    it('should return an array of users', async () => {
         const users = await userGetAll()
-        expect(Array.length).toBeGreaterThanOrEqual(1)
+        expect(users.length).toBeGreaterThanOrEqual(1)
         expect(Array.isArray(users)).toBe(true)
-    })),
-        test('cursor-based pagination: uses after parameter to fetch subsequent pages', async () => {
-            // Get first 3 users sorted by createdAt in ASC order (default)
-            const firstPage = await userGetAll(3)
-            expect(firstPage.length).toBe(3)
+    })
 
-            // Extract cursor from the last user's createdAt timestamp
-            const cursor = firstPage[firstPage.length - 1].dataValues.createdAt
+    it('cursor-based pagination: uses after parameter to fetch subsequent pages', async () => {
+        // Get first 3 users sorted by createdAt in ASC order (default)
+        const firstPage = await userGetAll(3)
+        expect(firstPage.length).toBe(3)
 
-            // Use cursor to fetch next page users (those created after the cursor)
-            const secondPage = await userGetAll(3, cursor, 'createdAt', 'ASC')
-            console.debug({ res: secondPage.length })
-            expect(secondPage).toHaveLength(3)
+        // Extract cursor from the last user's createdAt timestamp
+        const cursor = firstPage[firstPage.length - 1].dataValues.createdAt
 
-            // All users in second page should have createdAt after the cursor
-            for (const user of secondPage) {
-                expect(user.dataValues.createdAt.getTime()).toBeGreaterThan(
-                    cursor.getTime(),
-                )
-            }
+        // Use cursor to fetch next page users (those created after the cursor)
+        const secondPage = await userGetAll(3, cursor, 'createdAt', 'ASC')
+        console.debug({ res: secondPage.length })
+        expect(secondPage).toHaveLength(3)
 
-            // Ensure proper chronological ordering within the page
-            for (let i = 0; i < secondPage.length - 1; i++) {
-                expect(
-                    secondPage[i].dataValues.createdAt.getTime(),
-                ).toBeLessThanOrEqual(
-                    secondPage[i + 1].dataValues.createdAt.getTime(),
-                )
-            }
-        }))
+        // All users in second page should have createdAt after the cursor
+        for (const user of secondPage) {
+            expect(user.dataValues.createdAt.getTime()).toBeGreaterThan(
+                cursor.getTime(),
+            )
+        }
 
-    test('cursor-based pagination: works correctly with DESC order', async () => {
+        // Ensure proper chronological ordering within the page
+        for (let i = 0; i < secondPage.length - 1; i++) {
+            expect(
+                secondPage[i].dataValues.createdAt.getTime(),
+            ).toBeLessThanOrEqual(
+                secondPage[i + 1].dataValues.createdAt.getTime(),
+            )
+        }
+    })
+
+    it('cursor-based pagination: works correctly with DESC order', async () => {
         // Get first 3 users sorted by createdAt in DESC order
         const firstPage = await userGetAll(3, null, 'createdAt', 'DESC')
         expect(firstPage.length).toBe(3)
