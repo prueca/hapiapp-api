@@ -1,7 +1,7 @@
 import sequelize from '@/lib/db/sequelize'
 import userGetById from '@/lib/domains/user/userGetById'
 import { beforeAll, describe, expect, it } from 'vitest'
-import seed from '../../db/mock/user.seed'
+import seed from '~/mock/user.seed'
 
 describe('userGetById', () => {
     beforeAll(async () => {
