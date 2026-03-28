@@ -21,7 +21,6 @@ describe('userCreate', () => {
         }
 
         const createdUser = await userCreate(userData)
-        console.debug({ res: createdUser })
 
         expect(createdUser).toBeDefined()
         expect(createdUser.dataValues.id).toBeDefined()
