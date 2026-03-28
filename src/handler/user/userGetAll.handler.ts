@@ -8,7 +8,7 @@ export default async (ctx: Context) => {
         Number(limit) || 10,
         (after as string) || null,
         (sortBy as string) || 'createdAt',
-        (sortOrder as 'ASC' | 'DESC') || 'ASC',
+        (sortOrder as 'ASC' | 'DESC') || 'DESC',
     )
 
     ctx.send({ data: users }, 200)
