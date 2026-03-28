@@ -4,6 +4,7 @@ import ping from '@/handler/ping'
 import userCreate from '@/handler/user/userCreate.handler'
 import userGetAll from '@/handler/user/userGetAll.handler'
 import userGetById from '@/handler/user/userGetById.handler'
+import userUpdate from '@/handler/user/userUpdate.handler'
 
 import middleware from '@/middleware/middleware'
 
@@ -14,6 +15,7 @@ router.get('/ping', Context.middleware(middleware), Context.handler(ping))
 // api: users
 router.get('/api/users', Context.handler(userGetAll))
 router.get('/api/users/:id', Context.handler(userGetById))
-router.post('/api/users', Context.handler(userCreate))
+router.post('/api/users/:id', Context.handler(userCreate))
+router.put('/api/users/:id', Context.handler(userUpdate))
 
 export default router
