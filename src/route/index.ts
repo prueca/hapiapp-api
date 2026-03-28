@@ -9,6 +9,6 @@ const router = Router()
 router.get('/ping', Context.middleware(middleware), Context.handler(ping))
 
 // api: users
-router.get('/users', Context.handler(userGetAll))
+router.get('/api/users', Context.handler(userGetAll))
 
 export default router
