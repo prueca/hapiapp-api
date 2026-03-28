@@ -5,6 +5,7 @@ import userCreate from '@/handler/user/userCreate.handler'
 import userGetAll from '@/handler/user/userGetAll.handler'
 import userGetById from '@/handler/user/userGetById.handler'
 import userUpdate from '@/handler/user/userUpdate.handler'
+import userDelete from '@/handler/user/userDelete.handler'
 
 import middleware from '@/middleware/middleware'
 
@@ -17,5 +18,6 @@ router.get('/api/users', Context.handler(userGetAll))
 router.get('/api/users/:id', Context.handler(userGetById))
 router.post('/api/users/:id', Context.handler(userCreate))
 router.put('/api/users/:id', Context.handler(userUpdate))
+router.delete('/api/users/:id', Context.handler(userDelete))
 
 export default router
