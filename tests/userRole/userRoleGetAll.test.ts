@@ -76,4 +76,43 @@ describe('userRoleGetAll', () => {
             )
         }
     })
+
+    it('should filter user roles by role name using LIKE', async () => {
+        const filteredUserRoles = await userRoleGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            'admin',
+        )
+        expect(filteredUserRoles.length).toBeGreaterThan(0)
+        for (const userRole of filteredUserRoles) {
+            expect(userRole.dataValues.role.toLowerCase()).toContain('admin')
+        }
+    })
+
+    it('should filter user roles by role name with partial match', async () => {
+        const filteredUserRoles = await userRoleGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            'user',
+        )
+        expect(filteredUserRoles.length).toBeGreaterThan(0)
+        for (const userRole of filteredUserRoles) {
+            expect(userRole.dataValues.role.toLowerCase()).toContain('user')
+        }
+    })
+
+    it('should return all user roles when no filter is provided', async () => {
+        const allUserRoles = await userRoleGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            null,
+        )
+        expect(allUserRoles.length).toBeGreaterThan(0)
+    })
 })
