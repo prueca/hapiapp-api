@@ -6,8 +6,13 @@ export default async function userRoleGetAll(
     after: string | null = null,
     sortBy: string = 'createdAt',
     sortOrder: 'ASC' | 'DESC' = 'DESC',
+    role: string | null = null,
 ): Promise<Model<any, any>[]> {
     const where: any = {}
+
+    if (role) {
+        where.role = { [Op.like]: `%${role}%` }
+    }
 
     if (after) {
         const comparison = sortOrder === 'ASC' ? Op.gt : Op.lt
