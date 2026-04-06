@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import userRoleGetAll from '@/lib/domains/userRole/userRoleGetAll'
 import sequelize from '@/lib/db/sequelize'
 import seedUserRole from '~/mock/userRole.seed'
