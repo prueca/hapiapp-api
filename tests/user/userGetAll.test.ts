@@ -20,8 +20,8 @@ describe('userGetAll', () => {
     })
 
     it('cursor-based pagination: uses after parameter to fetch subsequent pages', async () => {
-        // Get first 3 users sorted by createdAt in ASC order (default)
-        const firstPage = await userGetAll(3)
+        // Get first 3 users sorted by createdAt in ASC order
+        const firstPage = await userGetAll(3, null, 'createdAt', 'ASC')
         expect(firstPage.length).toBe(3)
 
         // Extract cursor from the last user's createdAt timestamp
@@ -29,7 +29,6 @@ describe('userGetAll', () => {
 
         // Use cursor to fetch next page users (those created after the cursor)
         const secondPage = await userGetAll(3, cursor, 'createdAt', 'ASC')
-        console.debug({ res: secondPage.length })
         expect(secondPage).toHaveLength(3)
 
         // All users in second page should have createdAt after the cursor
@@ -76,5 +75,63 @@ describe('userGetAll', () => {
                 secondPage[i + 1].dataValues.createdAt.getTime(),
             )
         }
+    })
+
+    it('should filter users by username using LIKE', async () => {
+        const filteredUsers = await userGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            'coyote',
+        )
+        expect(filteredUsers.length).toBeGreaterThan(0)
+        for (const user of filteredUsers) {
+            expect(user.dataValues.username.toLowerCase()).toContain('coyote')
+        }
+    })
+
+    it('should filter users by firstName using LIKE', async () => {
+        const filteredUsers = await userGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            null,
+            'bugs',
+        )
+        expect(filteredUsers.length).toBeGreaterThan(0)
+        for (const user of filteredUsers) {
+            expect(user.dataValues.firstName.toLowerCase()).toContain('bugs')
+        }
+    })
+
+    it('should filter users by lastName using LIKE', async () => {
+        const filteredUsers = await userGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            null,
+            null,
+            'fudd',
+        )
+        expect(filteredUsers.length).toBeGreaterThan(0)
+        for (const user of filteredUsers) {
+            expect(user.dataValues.lastName.toLowerCase()).toContain('fudd')
+        }
+    })
+
+    it('should return all users when no filter is provided', async () => {
+        const allUsers = await userGetAll(
+            10,
+            null,
+            'createdAt',
+            'DESC',
+            null,
+            null,
+            null,
+        )
+        expect(allUsers.length).toBeGreaterThan(0)
     })
 })
