@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest'
+import { describe, it, expect, afterAll, beforeEach } from 'vitest'
 import userRoleUpdate from '@/lib/domains/userRole/userRoleUpdate'
 import sequelize from '@/lib/db/sequelize'
 import UserRole from '@/lib/db/userRole'
@@ -6,15 +6,12 @@ import UserRole from '@/lib/db/userRole'
 describe('userRoleUpdate', () => {
     let createdUserRole: string
 
-    beforeAll(async () => {
-        await sequelize.sync({ force: true })
-    })
-
     afterAll(async () => {
         await sequelize.close()
     })
 
     beforeEach(async () => {
+        await sequelize.sync({ force: true })
         const createdUserRoleInstance = await UserRole.create({
             role: 'admin',
         })
@@ -58,8 +55,6 @@ describe('userRoleUpdate', () => {
     })
 
     it('should only update provided fields', async () => {
-        const originalRole = 'admin'
-
         const updatedUserRole = await userRoleUpdate(createdUserRole, {
             role: 'user',
         })

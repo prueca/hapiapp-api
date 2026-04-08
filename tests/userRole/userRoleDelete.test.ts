@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest'
+import { describe, it, expect, afterAll, beforeEach } from 'vitest'
 import userRoleDelete from '@/lib/domains/userRole/userRoleDelete'
 import sequelize from '@/lib/db/sequelize'
 import UserRole from '@/lib/db/userRole'
@@ -6,15 +6,16 @@ import UserRole from '@/lib/db/userRole'
 describe('userRoleDelete', () => {
     let createdUserRole: string
 
-    beforeAll(async () => {
-        await sequelize.sync({ force: true })
-    })
+    // beforeAll(async () => {
+    //     await sequelize.sync({ force: true })
+    // })
 
     afterAll(async () => {
         await sequelize.close()
     })
 
     beforeEach(async () => {
+        await sequelize.sync({ force: true })
         const createdUserRoleInstance = await UserRole.create({
             role: 'admin',
         })
