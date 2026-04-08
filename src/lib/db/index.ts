@@ -3,3 +3,4 @@
 
 export { default as User } from './users'
 export { default as UserRole } from './userRole'
+export { default as AccountType } from './accountType'

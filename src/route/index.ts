@@ -13,6 +13,12 @@ import userRoleCreateHandler from '@/handler/userRole/userRoleCreate.handler'
 import userRoleUpdateHandler from '@/handler/userRole/userRoleUpdate.handler'
 import userRoleDeleteHandler from '@/handler/userRole/userRoleDelete.handler'
 
+import accountTypeGetAllHandler from '@/handler/accountType/accountTypeGetAll.handler'
+import accountTypeGetByIdHandler from '@/handler/accountType/accountTypeGetById.handler'
+import accountTypeCreateHandler from '@/handler/accountType/accountTypeCreate.handler'
+import accountTypeUpdateHandler from '@/handler/accountType/accountTypeUpdate.handler'
+import accountTypeDeleteHandler from '@/handler/accountType/accountTypeDelete.handler'
+
 import middleware from '@/middleware/middleware'
 
 const router = Router()
@@ -22,15 +28,25 @@ router.get('/ping', Context.middleware(middleware), Context.handler(ping))
 // api: users
 router.get('/api/users', Context.handler(userGetAll))
 router.get('/api/users/:id', Context.handler(userGetById))
-router.post('/api/users/:id', Context.handler(userCreate))
+router.post('/api/users', Context.handler(userCreate))
 router.put('/api/users/:id', Context.handler(userUpdate))
 router.delete('/api/users/:id', Context.handler(userDelete))
 
 // api: user_roles
 router.get('/api/user_role', Context.handler(userRoleGetAllHandler))
 router.get('/api/use_role/:id', Context.handler(userRoleGetByIdHandler))
-router.post('/api/user_role/:id', Context.handler(userRoleCreateHandler))
+router.post('/api/user_role', Context.handler(userRoleCreateHandler))
 router.put('/api/user_role/:id', Context.handler(userRoleUpdateHandler))
 router.delete('/api/use_role/:id', Context.handler(userRoleDeleteHandler))
+
+// api: account_types
+router.get('/api/account_types', Context.handler(accountTypeGetAllHandler))
+router.get('/api/account_types/:id', Context.handler(accountTypeGetByIdHandler))
+router.post('/api/account_types', Context.handler(accountTypeCreateHandler))
+router.put('/api/account_types/:id', Context.handler(accountTypeUpdateHandler))
+router.delete(
+    '/api/account_types/:id',
+    Context.handler(accountTypeDeleteHandler),
+)
 
 export default router
