@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import accountTypeGetAll from '@/lib/domains/accountType/accountTypeGetAll'
 import sequelize from '@/lib/db/sequelize'
-import seedAccountType from '~/mock/accountType.seed'
+import seed from '~/mock/accountType.seed'
 
 describe('accountTypeGetAll', () => {
     beforeAll(async () => {
         await sequelize.sync({ force: true })
-        seedAccountType()
+        seed()
     })
 
     afterAll(async () => {
@@ -98,7 +98,7 @@ describe('accountTypeGetAll', () => {
         expect(filteredAccountTypes.length).toBeGreaterThan(0)
         for (const accountType of filteredAccountTypes) {
             expect(accountType.dataValues.account.toLowerCase()).toContain(
-                'dealer',
+                'distributor',
             )
         }
     })
