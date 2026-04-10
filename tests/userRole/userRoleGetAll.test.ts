@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import userRoleGetAll from '@/lib/domains/userRole/userRoleGetAll'
 import sequelize from '@/lib/db/sequelize'
-import seedUserRole from '~/mock/userRole.seed'
+import seed from '~/mock/userRole.seed'
 
 describe('userRoleGetAll', () => {
     beforeAll(async () => {
         await sequelize.sync({ force: true })
-        seedUserRole()
+        seed()
     })
 
     afterAll(async () => {
