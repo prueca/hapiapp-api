@@ -19,6 +19,12 @@ import accountTypeCreateHandler from '@/handler/accountType/accountTypeCreate.ha
 import accountTypeUpdateHandler from '@/handler/accountType/accountTypeUpdate.handler'
 import accountTypeDeleteHandler from '@/handler/accountType/accountTypeDelete.handler'
 
+import accountGetAllHandler from '@/handler/account/accountGetAll.handler'
+import accountGetByIdHandler from '@/handler/account/accountGetById.handler'
+import accountCreateHandler from '@/handler/account/accountCreate.handler'
+import accountUpdateHandler from '@/handler/account/accountUpdate.handler'
+import accountDeleteHandler from '@/handler/account/accountDelete.handler'
+
 import middleware from '@/middleware/middleware'
 
 const router = Router()
@@ -48,5 +54,12 @@ router.delete(
     '/api/account_types/:id',
     Context.handler(accountTypeDeleteHandler),
 )
+
+// api: accounts
+router.get('/api/accounts', Context.handler(accountGetAllHandler))
+router.get('/api/accounts/:id', Context.handler(accountGetByIdHandler))
+router.post('/api/accounts', Context.handler(accountCreateHandler))
+router.put('/api/accounts/:id', Context.handler(accountUpdateHandler))
+router.delete('/api/accounts/:id', Context.handler(accountDeleteHandler))
 
 export default router
