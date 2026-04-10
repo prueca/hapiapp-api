@@ -28,9 +28,9 @@ router.delete('/api/users/:id', Context.handler(userDelete))
 
 // api: user_roles
 router.get('/api/user_role', Context.handler(userRoleGetAllHandler))
-router.get('/api/use_role/:id', Context.handler(userRoleGetByIdHandler))
+router.get('/api/user_role/:id', Context.handler(userRoleGetByIdHandler))
 router.post('/api/user_role/:id', Context.handler(userRoleCreateHandler))
 router.put('/api/user_role/:id', Context.handler(userRoleUpdateHandler))
-router.delete('/api/use_role/:id', Context.handler(userRoleDeleteHandler))
+router.delete('/api/user_role/:id', Context.handler(userRoleDeleteHandler))
 
 export default router
