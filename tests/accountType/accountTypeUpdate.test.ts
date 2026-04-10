@@ -58,11 +58,12 @@ describe('accountTypeUpdate', () => {
     })
 
     it('should only update provided fields', async () => {
-        const originalAccount = 'admin'
-
-        const updatedAccountType = await accountTypeUpdate(createdAccountTypeId, {
-            account: 'super_admin',
-        })
+        const updatedAccountType = await accountTypeUpdate(
+            createdAccountTypeId,
+            {
+                account: 'super_admin',
+            },
+        )
 
         expect(updatedAccountType).toBeDefined()
         expect(updatedAccountType?.dataValues.account).toBe('super_admin')
