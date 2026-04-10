@@ -1,0 +1,40 @@
+export const mockAccounts = [
+    {
+        id: '39fba84d-6c5c-45b5-89c1-df45c69654d7',
+        name: 'Acme Corporation',
+        address: '123 Main Street, New York, NY 10001',
+        isrCode: 'ISRC123456',
+        sapCode: 'SAP789012',
+        companyCode: 'CC001',
+        accountTypeId: '45d1e2f7-8b9c-4d0e-8f1a-2b3c4d5e6f78',
+        userId: '5a6b7c8d-9e0f-4123-5467-89ab01234567',
+        createdAt: '2026-03-26 16:57:34.486 +00:00',
+        updatedAt: '2026-03-26 17:01:34.486 +00:00',
+    },
+    {
+        id: '45d1e2f7-8b9c-4d0e-8f1a-2b3c4d5e6f78',
+        name: 'Global Industries',
+        address: '456 Business Ave, Los Angeles, CA 90001',
+        isrCode: 'ISRC789012',
+        sapCode: 'SAP345678',
+        companyCode: 'CC002',
+        accountTypeId: '5a6b7c8d-9e0f-4123-5467-89ab01234567',
+        userId: '39fba84d-6c5c-45b5-89c1-df45c69654d7',
+        createdAt: '2026-03-26 16:58:34.486 +00:00',
+        updatedAt: '2026-03-26 17:02:34.486 +00:00',
+    },
+    {
+        id: '5a6b7c8d-9e0f-4123-5467-89ab01234567',
+        name: 'Tech Solutions Inc',
+        address: '789 Innovation Blvd, San Francisco, CA 94105',
+        isrCode: 'ISRC345678',
+        sapCode: 'SAP901234',
+        companyCode: 'CC003',
+        accountTypeId: '39fba84d-6c5c-45b5-89c1-df45c69654d7',
+        userId: '45d1e2f7-8b9c-4d0e-8f1a-2b3c4d5e6f78',
+        createdAt: '2026-03-26 16:59:34.486 +00:00',
+        updatedAt: '2026-03-26 17:03:34.486 +00:00',
+    },
+]
+
+export default mockAccounts
