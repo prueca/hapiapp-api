@@ -9,7 +9,4 @@ const sequelize = new Sequelize({
     logging: false,
 })
 
-await sequelize.authenticate()
-await sequelize.sync()
-
 export default sequelize
