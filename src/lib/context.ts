@@ -121,11 +121,13 @@ export default class Context {
         const statusCode = e.statusCode || UNKNOWN_ERROR.statusCode
         const errorCode = e.errorCode || UNKNOWN_ERROR.errorCode
         const message = e.message || UNKNOWN_ERROR.message
+        const details = e.details || undefined
 
         return this._res.status(statusCode).json({
             error: {
                 code: errorCode,
-                message: message,
+                message,
+                details,
             },
         })
     }

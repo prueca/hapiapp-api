@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
+import { PlainObject } from './types'
 
 const errors = {
     UNKNOWN_ERROR: {
@@ -38,8 +39,13 @@ export default class Exception extends Error {
 
     statusCode: number
     errorCode: string
+    details?: PlainObject
 
-    constructor(code: keyof typeof errors, message?: string) {
+    constructor(
+        code: keyof typeof errors,
+        message?: string | null,
+        details?: PlainObject,
+    ) {
         const msg =
             message ||
             errors[code as keyof typeof errors]?.message ||
@@ -53,5 +59,6 @@ export default class Exception extends Error {
 
         this.errorCode = code
         this.statusCode = status
+        this.details = details
     }
 }
