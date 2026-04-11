@@ -5,6 +5,7 @@ import assert from 'assert'
 
 import { Middleware, PlainObject, RequestHandler } from './types'
 import Exception from './exception'
+import * as db from './db'
 
 export default class Context {
     static _bindings = new WeakMap<Request, Context>()
@@ -15,6 +16,8 @@ export default class Context {
     public params: PlainObject = {}
     public headers: PlainObject = {}
     public locals: PlainObject = {}
+
+    public db = db
 
     public user: PlainObject = {}
 
