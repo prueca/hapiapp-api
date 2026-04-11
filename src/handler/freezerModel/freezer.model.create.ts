@@ -2,14 +2,15 @@ import Context from '@/lib/context'
 import * as z from 'zod'
 import Exception from '@/lib/exception'
 
-export default async (ctx: Context) => {
-    const schema = z.object({
-        brand: z.string().nonempty(),
-        type: z.string().nonempty(),
-        year: z.string().nonempty(),
-        capacity: z.string().nonempty(),
-    })
+const schema = z.object({
+    brand: z.string().nonempty(),
+    type: z.string().nonempty(),
+    year: z.string().nonempty(),
+    capacity: z.number().gt(0),
+    capacity_unit: z.string().nonempty(),
+})
 
+export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {
@@ -19,7 +20,7 @@ export default async (ctx: Context) => {
     try {
         const data = await ctx.db.FreezerModel.create(parsed.data)
 
-        return data.toJSON()
+        return { data: data.toJSON() }
     } catch (error: any) {
         if (error.name === 'SequelizeUniqueConstraintError') {
             // This means that the brand, type and year

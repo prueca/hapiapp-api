@@ -3,15 +3,16 @@ import Exception from '@/lib/exception'
 import z from 'zod'
 import _ from 'lodash'
 
-export default async (ctx: Context) => {
-    const schema = z.object({
-        id: z.uuidv4(),
-        brand: z.string().nonempty().optional(),
-        type: z.string().nonempty().optional(),
-        year: z.string().nonempty().optional(),
-        capacity: z.string().nonempty().optional(),
-    })
+const schema = z.object({
+    id: z.uuidv4(),
+    brand: z.string().nonempty().optional(),
+    type: z.string().nonempty().optional(),
+    year: z.string().nonempty().optional(),
+    capacity: z.number().gt(0).optional(),
+    capacity_unit: z.string().nonempty().optional(),
+})
 
+export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {
@@ -28,5 +29,5 @@ export default async (ctx: Context) => {
 
     const data = await subjectRecord.update(params)
 
-    return data.toJSON()
+    return { data: data.toJSON() }
 }

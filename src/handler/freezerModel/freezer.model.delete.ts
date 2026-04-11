@@ -2,11 +2,11 @@ import Context from '@/lib/context'
 import Exception from '@/lib/exception'
 import z from 'zod'
 
-export default async (ctx: Context) => {
-    const schema = z.object({
-        id: z.uuidv4(),
-    })
+const schema = z.object({
+    id: z.uuidv4(),
+})
 
+export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {

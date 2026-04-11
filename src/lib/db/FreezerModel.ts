@@ -20,8 +20,12 @@ const attributes = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    capacity: {
+    capacity_unit: {
         type: DataTypes.STRING,
+        allowNull: false,
+    },
+    capacity: {
+        type: DataTypes.NUMBER,
         allowNull: false,
     },
 }

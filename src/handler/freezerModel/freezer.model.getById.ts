@@ -2,11 +2,11 @@ import Context from '@/lib/context'
 import * as z from 'zod'
 import Exception from '@/lib/exception'
 
-export default async (ctx: Context) => {
-    const schema = z.object({
-        id: z.uuidv4(),
-    })
+const schema = z.object({
+    id: z.uuidv4(),
+})
 
+export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {
@@ -19,5 +19,5 @@ export default async (ctx: Context) => {
         throw new Exception('NOT_FOUND')
     }
 
-    return data.toJSON()
+    return { data: data.toJSON() }
 }
