@@ -21,6 +21,7 @@ import accountTypeDeleteHandler from '@/handler/accountType/accountTypeDelete.ha
 
 import freezerModelCreate from '@/handler/freezerModel/freezer.model.create'
 import freezerModelGetById from '@/handler/freezerModel/freezer.model.getById'
+import freezerModelList from '@/handler/freezerModel/freezer.model.list'
 import freezerModelUpdate from '@/handler/freezerModel/freezer.model.update'
 
 import middleware from '@/middleware/middleware'
@@ -56,6 +57,7 @@ router.delete(
 // api: freezer_models
 router.post('/api/freezer_models', Context.handler(freezerModelCreate))
 router.get('/api/freezer_models/:id', Context.handler(freezerModelGetById))
+router.get('/api/freezer_models/', Context.handler(freezerModelList))
 router.put('/api/freezer_models/:id', Context.handler(freezerModelUpdate))
 
 export default router
