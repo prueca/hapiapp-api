@@ -7,7 +7,7 @@ const schema = z.object({
     id: z.uuidv4(),
     brand: z.string().nonempty().optional(),
     type: z.string().nonempty().optional(),
-    year: z.string().nonempty().optional(),
+    year: z.number().positive().optional(),
     capacity: z.number().gt(0).optional(),
     capacity_unit: z.string().nonempty().optional(),
 })

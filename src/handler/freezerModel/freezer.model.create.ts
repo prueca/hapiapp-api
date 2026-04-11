@@ -5,7 +5,7 @@ import Exception from '@/lib/exception'
 const schema = z.object({
     brand: z.string().nonempty(),
     type: z.string().nonempty(),
-    year: z.string().nonempty(),
+    year: z.number().positive(),
     capacity: z.number().gt(0),
     capacity_unit: z.string().nonempty(),
 })
