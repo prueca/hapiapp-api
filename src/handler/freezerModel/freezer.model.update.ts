@@ -4,7 +4,7 @@ import z from 'zod'
 import _ from 'lodash'
 
 const schema = z.object({
-    id: z.uuidv4(),
+    id: z.ulid(),
     brand: z.string().nonempty().optional(),
     type: z.string().nonempty().optional(),
     year: z.number().positive().optional(),

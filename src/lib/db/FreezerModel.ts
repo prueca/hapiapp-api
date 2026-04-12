@@ -1,12 +1,20 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
+import ulid from '../util/ulid'
 
 const attributes = {
     id: {
-        type: DataTypes.UUIDV4,
+        type: DataTypes.STRING(26),
         primaryKey: true,
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: ulid.generate,
+        validate: {
+            isULID(value: string) {
+                if (!ulid.isValid(value)) {
+                    throw new Error('Invalid Id')
+                }
+            },
+        },
     },
     brand: {
         type: DataTypes.STRING,

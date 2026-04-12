@@ -3,7 +3,7 @@ import * as z from 'zod'
 import Exception from '@/lib/exception'
 
 const schema = z.object({
-    id: z.uuidv4(),
+    id: z.ulid(),
 })
 
 export default async (ctx: Context) => {

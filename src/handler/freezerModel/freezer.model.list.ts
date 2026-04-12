@@ -15,7 +15,7 @@ const schema = z.object({
     limit: z.number().positive(),
     sortBy: z.string().optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
-    nextCursor: z.string().nullable().optional(),
+    nextCursor: z.ulid().nullable().optional(),
 })
 
 export default async (ctx: Context) => {

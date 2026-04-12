@@ -18,16 +18,17 @@ export default async (ctx: Context) => {
     }
 
     try {
-        const data = await ctx.db.FreezerModel.create(parsed.data)
+        const data = (await ctx.db.FreezerModel.create(parsed.data)).toJSON()
 
-        return { data: data.toJSON() }
+        return { data }
     } catch (error: any) {
-        if (error.name === 'SequelizeUniqueConstraintError') {
-            // This means that the brand, type and year
-            // combination already exists.
-            throw new Exception('CONFLICT')
+        switch (error.name) {
+            case 'SequelizeUniqueConstraintError':
+                throw new Exception('CONFLICT')
+            case 'SequelizeValidationError':
+                throw new Exception('SEQUELIZE_VALIDATION_ERROR', error.message)
+            default:
+                throw error
         }
-
-        throw error
     }
 }

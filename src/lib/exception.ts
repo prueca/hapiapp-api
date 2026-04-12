@@ -32,6 +32,11 @@ const errors = {
         statusCode: StatusCodes.FORBIDDEN,
         message: 'Permission denied',
     },
+    SEQUELIZE_VALIDATION_ERROR: {
+        errorCode: 'SEQUELIZE_VALIDATION_ERROR',
+        statusCode: StatusCodes.UNPROCESSABLE_ENTITY,
+        message: 'Sequelize validation error',
+    },
 }
 
 export default class Exception extends Error {
