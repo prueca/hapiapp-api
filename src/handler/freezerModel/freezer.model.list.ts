@@ -3,6 +3,7 @@ import Exception from '@/lib/exception'
 import { PlainObject } from '@/lib/types'
 import { Op } from 'sequelize'
 import z from 'zod'
+import _ from 'lodash'
 
 const schema = z.object({
     filters: z.object({
@@ -33,7 +34,9 @@ export default async (ctx: Context) => {
         nextCursor,
     } = parsed.data
 
-    const where: PlainObject = filters
+    const where: PlainObject = _.mapValues(filters, (value) => {
+        return { [Op.like]: `%${value}%` }
+    })
 
     if (nextCursor) {
         const comparison = sortOrder === 'asc' ? Op.gt : Op.lt
@@ -42,7 +45,7 @@ export default async (ctx: Context) => {
 
     const data = await ctx.db.FreezerModel.findAll({
         limit,
-        where: filters,
+        where,
         order: [[sortBy, sortOrder]],
     })
 
