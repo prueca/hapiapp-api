@@ -23,6 +23,7 @@ import freezerModelCreate from '@/handler/freezerModel/freezer.model.create'
 import freezerModelGetById from '@/handler/freezerModel/freezer.model.getById'
 import freezerModelList from '@/handler/freezerModel/freezer.model.list'
 import freezerModelUpdate from '@/handler/freezerModel/freezer.model.update'
+import freezerModelDelete from '@/handler/freezerModel/freezer.model.delete'
 
 import middleware from '@/middleware/middleware'
 
@@ -59,5 +60,6 @@ router.post('/api/freezer_models', Context.handler(freezerModelCreate))
 router.get('/api/freezer_models/:id', Context.handler(freezerModelGetById))
 router.get('/api/freezer_models/', Context.handler(freezerModelList))
 router.put('/api/freezer_models/:id', Context.handler(freezerModelUpdate))
+router.delete('/api/freezer_models/:id', Context.handler(freezerModelDelete))
 
 export default router
