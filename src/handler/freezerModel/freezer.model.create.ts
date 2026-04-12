@@ -18,9 +18,9 @@ export default async (ctx: Context) => {
     }
 
     try {
-        const data = (await ctx.db.FreezerModel.create(parsed.data)).toJSON()
-
-        return { data }
+        return {
+            data: await ctx.db.FreezerModel.create(parsed.data),
+        }
     } catch (error: any) {
         switch (error.name) {
             case 'SequelizeUniqueConstraintError':

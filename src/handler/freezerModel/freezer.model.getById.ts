@@ -19,5 +19,5 @@ export default async (ctx: Context) => {
         throw new Exception('NOT_FOUND')
     }
 
-    return { data: data.toJSON() }
+    return { data }
 }

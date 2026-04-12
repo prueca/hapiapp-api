@@ -29,5 +29,5 @@ export default async (ctx: Context) => {
 
     const data = await subjectRecord.update(params)
 
-    return { data: data.toJSON() }
+    return { data }
 }
