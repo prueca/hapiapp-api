@@ -12,6 +12,11 @@ const errors = {
         statusCode: StatusCodes.BAD_REQUEST,
         message: 'Invalid data',
     },
+    INVALID_PAYLOAD: {
+        errorCode: 'INVALID_PAYLOAD',
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Invalid payload',
+    },
     NOT_FOUND: {
         errorCode: 'NOT_FOUND',
         statusCode: StatusCodes.NOT_FOUND,

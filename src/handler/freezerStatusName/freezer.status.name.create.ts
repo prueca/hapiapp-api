@@ -10,7 +10,7 @@ export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {
-        throw new Exception('PARSE_ERROR', null, parsed.error.issues)
+        throw new Exception('INVALID_PAYLOAD', null, parsed.error.issues)
     }
 
     try {

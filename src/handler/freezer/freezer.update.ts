@@ -5,10 +5,8 @@ import _ from 'lodash'
 
 const schema = z.object({
     id: z.ulid(),
-    brand: z.string().nonempty().optional(),
-    type: z.string().nonempty().optional(),
-    year: z.number().positive().optional(),
-    capacity: z.string().nonempty().optional(),
+    freezerTypeId: z.ulid().optional(),
+    accountId: z.ulid().optional(),
 })
 
 export default async (ctx: Context) => {
@@ -18,9 +16,13 @@ export default async (ctx: Context) => {
         throw new Exception('INVALID_PAYLOAD', null, parsed.error.issues)
     }
 
-    const subjectId = parsed.data.id
-    const params = _.pick(parsed.data, ['brand', 'type', 'year', 'capacity'])
-    const subjectRecord = await ctx.db.FreezerType.findByPk(subjectId)
+    const changes = _.pick(parsed.data, ['accountId', 'freezerTypeId'])
+
+    if (_.isEmpty(changes)) {
+        throw new Exception('INVALID_PAYLOAD', 'No changes provided')
+    }
+
+    const subjectRecord = await ctx.db.Freezer.findByPk(parsed.data.id)
 
     if (!subjectRecord) {
         throw new Exception('NOT_FOUND')
@@ -28,12 +30,12 @@ export default async (ctx: Context) => {
 
     try {
         return {
-            data: await subjectRecord.update(params),
+            data: await subjectRecord.update(changes),
         }
     } catch (error: any) {
         switch (error.name) {
-            case 'SequelizeUniqueConstraintError':
-                throw new Exception('CONFLICT')
+            case 'SequelizeValidationError':
+                throw new Exception('SEQUELIZE_VALIDATION_ERROR', error.message)
             default:
                 throw error
         }

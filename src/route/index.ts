@@ -33,6 +33,7 @@ import freezerStatusNameDelete from '@/handler/freezerStatusName/freezer.status.
 
 import freezerCreate from '@/handler/freezer/freezer.create'
 import freezerGetById from '@/handler/freezer/freezer.getById'
+import freezerUpdate from '@/handler/freezer/freezer.update'
 
 import middleware from '@/middleware/middleware'
 
@@ -93,5 +94,6 @@ router.delete(
 // api: freezer
 router.post('/api/freezer', Context.handler(freezerCreate))
 router.get('/api/freezer/:id', Context.handler(freezerGetById))
+router.put('/api/freezer/:id', Context.handler(freezerUpdate))
 
 export default router

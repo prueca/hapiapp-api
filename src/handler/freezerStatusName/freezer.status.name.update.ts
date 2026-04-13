@@ -12,7 +12,7 @@ export default async (ctx: Context) => {
     const parsed = schema.safeParse(ctx.params)
 
     if (!parsed.success) {
-        throw new Exception('PARSE_ERROR', null, parsed.error.issues)
+        throw new Exception('INVALID_PAYLOAD', null, parsed.error.issues)
     }
 
     const subjectId = parsed.data.id
@@ -23,7 +23,16 @@ export default async (ctx: Context) => {
         throw new Exception('NOT_FOUND')
     }
 
-    const data = await subjectRecord.update(params)
-
-    return { data }
+    try {
+        return {
+            data: await subjectRecord.update(params),
+        }
+    } catch (error: any) {
+        switch (error.name) {
+            case 'SequelizeUniqueConstraintError':
+                throw new Exception('CONFLICT')
+            default:
+                throw error
+        }
+    }
 }
