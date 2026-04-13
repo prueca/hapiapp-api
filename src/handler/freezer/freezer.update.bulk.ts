@@ -4,7 +4,7 @@ import z from 'zod'
 import _ from 'lodash'
 
 const schema = z.object({
-    ids: z.array(z.ulid()).min(1).max(100),
+    id: z.array(z.ulid()).min(1).max(100),
     freezerTypeId: z.ulid().optional(),
     accountId: z.ulid().optional(),
 })
@@ -25,7 +25,7 @@ export default async (ctx: Context) => {
     try {
         const [affectedRows] = await ctx.db.Freezer.update(changes, {
             where: {
-                id: parsed.data.ids,
+                id: parsed.data.id,
             },
         })
 
