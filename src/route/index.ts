@@ -31,6 +31,8 @@ import freezerStatusNameList from '@/handler/freezerStatusName/freezer.status.na
 import freezerStatusNameUpdate from '@/handler/freezerStatusName/freezer.status.name.update'
 import freezerStatusNameDelete from '@/handler/freezerStatusName/freezer.status.name.delete'
 
+import freezerCreate from '@/handler/freezer/freezer.create'
+
 import middleware from '@/middleware/middleware'
 
 const router = Router()
@@ -86,5 +88,8 @@ router.delete(
     '/api/freezer_status_name/:id',
     Context.handler(freezerStatusNameDelete),
 )
+
+// api: freezer
+router.post('/api/freezer', Context.handler(freezerCreate))
 
 export default router

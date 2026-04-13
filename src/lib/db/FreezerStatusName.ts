@@ -1,20 +1,11 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
-import ulid from '../util/ulid'
+import commonAttr from './attributes.common'
 
 const attributes = {
     id: {
-        type: DataTypes.STRING(26),
+        ...commonAttr.id,
         primaryKey: true,
-        allowNull: false,
-        defaultValue: ulid.generate,
-        validate: {
-            isULID(value: string) {
-                if (!ulid.isValid(value)) {
-                    throw new Error('Invalid Id')
-                }
-            },
-        },
     },
     name: {
         type: DataTypes.STRING,

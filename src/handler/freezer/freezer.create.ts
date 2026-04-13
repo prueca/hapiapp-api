@@ -3,7 +3,8 @@ import Exception from '@/lib/exception'
 import z from 'zod'
 
 const schema = z.object({
-    name: z.string().nonempty(),
+    freezerTypeId: z.ulid(),
+    accountId: z.ulid(),
 })
 
 export default async (ctx: Context) => {
@@ -14,13 +15,26 @@ export default async (ctx: Context) => {
     }
 
     try {
+        const { freezerTypeId, accountId } = parsed.data
+        const [freezerType] = await Promise.all([
+            ctx.db.FreezerType.findByPk(freezerTypeId),
+            // Todo: Fetch account record by accountId
+        ])
+
+        if (!freezerType) {
+            throw new Exception('NOT_FOUND')
+        }
+
+        // Todo: Check if account exists
+
         return {
-            data: await ctx.db.FreezerStatusName.create(parsed.data),
+            data: await ctx.db.Freezer.create({
+                freezerTypeId: freezerType.get('id'),
+                accountId: accountId, // Todo: Use id from account record
+            }),
         }
     } catch (error: any) {
         switch (error.name) {
-            case 'SequelizeUniqueConstraintError':
-                throw new Exception('CONFLICT')
             case 'SequelizeValidationError':
                 throw new Exception('SEQUELIZE_VALIDATION_ERROR', error.message)
             default:
