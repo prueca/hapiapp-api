@@ -13,7 +13,7 @@ export default async (ctx: Context) => {
         throw new Exception('PARSE_ERROR', null, parsed.error.issues)
     }
 
-    const data = await ctx.db.FreezerModel.findByPk(parsed.data.id)
+    const data = await ctx.db.FreezerType.findByPk(parsed.data.id)
 
     if (!data) {
         throw new Exception('NOT_FOUND')

@@ -10,8 +10,6 @@ const schema = z.object({
         brand: z.string().optional(),
         type: z.string().optional(),
         year: z.number().positive().optional(),
-        capacity: z.number().positive().optional(),
-        capacity_unit: z.string().nonempty().optional(),
     }),
     limit: z.number().positive(),
     sortBy: z.string().optional(),
@@ -43,7 +41,7 @@ export default async (ctx: Context) => {
         where[sortBy] = { [comparison]: nextCursor }
     }
 
-    const data = await ctx.db.FreezerModel.findAll({
+    const data = await ctx.db.FreezerType.findAll({
         limit,
         where,
         order: [[sortBy, sortOrder]],

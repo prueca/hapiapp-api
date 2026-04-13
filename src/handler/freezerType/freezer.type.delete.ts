@@ -1,0 +1,26 @@
+import Context from '@/lib/context'
+import Exception from '@/lib/exception'
+import z from 'zod'
+
+const schema = z.object({
+    id: z.ulid(),
+})
+
+export default async (ctx: Context) => {
+    const parsed = schema.safeParse(ctx.params)
+
+    if (!parsed.success) {
+        throw new Exception('PARSE_ERROR', null, parsed.error.issues)
+    }
+
+    const subjectId = parsed.data.id
+    const subjectRecord = await ctx.db.FreezerType.findByPk(subjectId)
+
+    if (!subjectRecord) {
+        throw new Exception('NOT_FOUND')
+    }
+
+    await subjectRecord.destroy()
+
+    return { success: true }
+}

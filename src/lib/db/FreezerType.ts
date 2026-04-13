@@ -28,20 +28,12 @@ const attributes = {
         type: DataTypes.NUMBER,
         allowNull: false,
     },
-    capacity: {
-        type: DataTypes.NUMBER,
-        allowNull: false,
-    },
-    capacity_unit: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
 }
 
 const options = {
     sequelize,
     freezeTableName: true,
-    tableName: 'freezer_model',
+    tableName: 'freezer_type',
     timestamps: true,
     paranoid: true,
     indexes: [

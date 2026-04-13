@@ -6,8 +6,6 @@ const schema = z.object({
     brand: z.string().nonempty(),
     type: z.string().nonempty(),
     year: z.number().positive(),
-    capacity: z.number().gt(0),
-    capacity_unit: z.string().nonempty(),
 })
 
 export default async (ctx: Context) => {
@@ -19,7 +17,7 @@ export default async (ctx: Context) => {
 
     try {
         return {
-            data: await ctx.db.FreezerModel.create(parsed.data),
+            data: await ctx.db.FreezerType.create(parsed.data),
         }
     } catch (error: any) {
         switch (error.name) {

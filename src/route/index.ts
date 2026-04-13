@@ -19,11 +19,11 @@ import accountTypeCreateHandler from '@/handler/accountType/accountTypeCreate.ha
 import accountTypeUpdateHandler from '@/handler/accountType/accountTypeUpdate.handler'
 import accountTypeDeleteHandler from '@/handler/accountType/accountTypeDelete.handler'
 
-import freezerModelCreate from '@/handler/freezerModel/freezer.model.create'
-import freezerModelGetById from '@/handler/freezerModel/freezer.model.getById'
-import freezerModelList from '@/handler/freezerModel/freezer.model.list'
-import freezerModelUpdate from '@/handler/freezerModel/freezer.model.update'
-import freezerModelDelete from '@/handler/freezerModel/freezer.model.delete'
+import freezerTypeCreate from '@/handler/freezerType/freezer.type.create'
+import freezerTypeGetById from '@/handler/freezerType/freezer.type.getById'
+import freezerTypeList from '@/handler/freezerType/freezer.type.list'
+import freezerTypeUpdate from '@/handler/freezerType/freezer.type.update'
+import freezerTypeDelete from '@/handler/freezerType/freezer.type.delete'
 
 import freezerStatusNameCreate from '@/handler/freezerStatusName/freezer.status.name.create'
 import freezerStatusNameGetById from '@/handler/freezerStatusName/freezer.status.name.getById'
@@ -61,12 +61,12 @@ router.delete(
     Context.handler(accountTypeDeleteHandler),
 )
 
-// api: freezer_models
-router.post('/api/freezer_models', Context.handler(freezerModelCreate))
-router.get('/api/freezer_models/:id', Context.handler(freezerModelGetById))
-router.get('/api/freezer_models/', Context.handler(freezerModelList))
-router.put('/api/freezer_models/:id', Context.handler(freezerModelUpdate))
-router.delete('/api/freezer_models/:id', Context.handler(freezerModelDelete))
+// api: freezer_types
+router.post('/api/freezer_types', Context.handler(freezerTypeCreate))
+router.get('/api/freezer_types/:id', Context.handler(freezerTypeGetById))
+router.get('/api/freezer_types/', Context.handler(freezerTypeList))
+router.put('/api/freezer_types/:id', Context.handler(freezerTypeUpdate))
+router.delete('/api/freezer_types/:id', Context.handler(freezerTypeDelete))
 
 // api: freezer_status_name
 router.post(

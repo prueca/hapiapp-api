@@ -1,9 +1,13 @@
 import Context from '@/lib/context'
 import Exception from '@/lib/exception'
 import z from 'zod'
+import _ from 'lodash'
 
 const schema = z.object({
     id: z.ulid(),
+    brand: z.string().nonempty().optional(),
+    type: z.string().nonempty().optional(),
+    year: z.number().positive().optional(),
 })
 
 export default async (ctx: Context) => {
@@ -14,13 +18,14 @@ export default async (ctx: Context) => {
     }
 
     const subjectId = parsed.data.id
-    const subjectRecord = await ctx.db.FreezerModel.findByPk(subjectId)
+    const params = _.pick(parsed.data, ['brand', 'type', 'year', 'capacity'])
+    const subjectRecord = await ctx.db.FreezerType.findByPk(subjectId)
 
     if (!subjectRecord) {
         throw new Exception('NOT_FOUND')
     }
 
-    await subjectRecord.destroy()
+    const data = await subjectRecord.update(params)
 
-    return { success: true }
+    return { data }
 }
