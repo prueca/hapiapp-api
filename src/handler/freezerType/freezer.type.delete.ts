@@ -13,8 +13,7 @@ export default async (ctx: Context) => {
         throw new Exception('PARSE_ERROR', null, parsed.error.issues)
     }
 
-    const subjectId = parsed.data.id
-    const subjectRecord = await ctx.db.FreezerType.findByPk(subjectId)
+    const subjectRecord = await ctx.db.FreezerType.findByPk(parsed.data.id)
 
     if (!subjectRecord) {
         throw new Exception('NOT_FOUND')

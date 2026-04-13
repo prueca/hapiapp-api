@@ -28,6 +28,10 @@ const attributes = {
         type: DataTypes.NUMBER,
         allowNull: false,
     },
+    capacity: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 }
 
 const options = {
@@ -39,7 +43,7 @@ const options = {
     indexes: [
         {
             unique: true,
-            fields: ['brand', 'type', 'year'],
+            fields: ['brand', 'type', 'year', 'capacity'],
         },
     ],
 }

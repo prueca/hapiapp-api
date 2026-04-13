@@ -8,6 +8,7 @@ const schema = z.object({
     brand: z.string().nonempty().optional(),
     type: z.string().nonempty().optional(),
     year: z.number().positive().optional(),
+    capacity: z.string().nonempty().optional(),
 })
 
 export default async (ctx: Context) => {
