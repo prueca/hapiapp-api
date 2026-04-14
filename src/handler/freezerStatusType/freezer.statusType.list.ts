@@ -10,7 +10,7 @@ const schema = z.object({
         name: z.string().optional(),
     }),
     limit: z.number().positive(),
-    sortBy: z.string().nonempty().optional(),
+    sortBy: z.enum(['id', 'createdAt', 'updatedAt', 'name']).optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
     nextCursor: z.ulid().nullable().optional(),
 })

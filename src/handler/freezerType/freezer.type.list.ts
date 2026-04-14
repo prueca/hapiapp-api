@@ -12,7 +12,9 @@ const schema = z.object({
         year: z.number().positive().optional(),
     }),
     limit: z.number().positive(),
-    sortBy: z.string().nonempty().optional(),
+    sortBy: z
+        .enum(['id', 'createdAt', 'updatedAt', 'brand', 'type', 'year'])
+        .optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
     nextCursor: z.ulid().nullable().optional(),
 })
