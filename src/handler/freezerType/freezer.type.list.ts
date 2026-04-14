@@ -6,11 +6,13 @@ import z from 'zod'
 import _ from 'lodash'
 
 const schema = z.object({
-    filters: z.object({
-        brand: z.string().optional(),
-        type: z.string().optional(),
-        year: z.number().positive().optional(),
-    }),
+    filters: z
+        .object({
+            brand: z.string().optional(),
+            type: z.string().optional(),
+            year: z.number().positive().optional(),
+        })
+        .optional(),
     limit: z.number().positive(),
     sortBy: z
         .enum(['id', 'createdAt', 'updatedAt', 'brand', 'type', 'year'])

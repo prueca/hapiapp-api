@@ -6,9 +6,11 @@ import z from 'zod'
 import _ from 'lodash'
 
 const schema = z.object({
-    filters: z.object({
-        name: z.string().optional(),
-    }),
+    filters: z
+        .object({
+            name: z.string().optional(),
+        })
+        .optional(),
     limit: z.number().positive(),
     sortBy: z.enum(['id', 'createdAt', 'updatedAt', 'name']).optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),

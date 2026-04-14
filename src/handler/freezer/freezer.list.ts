@@ -6,10 +6,12 @@ import z from 'zod'
 import _ from 'lodash'
 
 const schema = z.object({
-    filters: z.object({
-        accountId: z.array(z.ulid()).optional(),
-        freezerTypeId: z.array(z.ulid()).optional(),
-    }),
+    filters: z
+        .object({
+            accountId: z.array(z.ulid()).optional(),
+            freezerTypeId: z.array(z.ulid()).optional(),
+        })
+        .optional(),
     limit: z.number().positive(),
     sortBy: z.enum(['id', 'createdAt', 'updatedAt']).optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
@@ -31,7 +33,7 @@ export default async (ctx: Context) => {
         nextCursor,
     } = parsed.data
 
-    const where: PlainObject = filters
+    const where: PlainObject = filters ?? {}
 
     if (nextCursor) {
         const comparison = sortOrder === 'asc' ? Op.gt : Op.lt
