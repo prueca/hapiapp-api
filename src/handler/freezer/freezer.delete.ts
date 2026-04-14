@@ -23,9 +23,7 @@ export default async (ctx: Context) => {
     try {
         await subjectRecord.destroy()
 
-        return {
-            data: subjectRecord,
-        }
+        return { data: subjectRecord }
     } catch (error: any) {
         switch (error.name) {
             case 'SequelizeValidationError':

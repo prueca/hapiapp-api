@@ -21,5 +21,5 @@ export default async (ctx: Context) => {
 
     await subjectRecord.destroy()
 
-    return { success: true }
+    return { data: subjectRecord }
 }
