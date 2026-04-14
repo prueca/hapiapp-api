@@ -1,19 +1,14 @@
 import sequelize from './sequelize'
 import { Model } from 'sequelize'
-import commonAttr from './attributes.common'
+import { ulid } from '@/lib/util'
 
 const attributes = {
     id: {
-        ...commonAttr.id,
+        ...ulid.attr(),
         primaryKey: true,
     },
-
-    // We create a copy of the object `commonAttr.id` below.
-    // This fixes the issue of fields not being created because
-    // of the same reference
-
-    freezerTypeId: { ...commonAttr.id },
-    accountId: { ...commonAttr.id },
+    freezerTypeId: ulid.attr(),
+    accountId: ulid.attr(),
 }
 
 const options = {

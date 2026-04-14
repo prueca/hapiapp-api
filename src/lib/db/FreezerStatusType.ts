@@ -1,10 +1,10 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
-import commonAttr from './attributes.common'
+import { ulid } from '@/lib/util'
 
 const attributes = {
     id: {
-        ...commonAttr.id,
+        ...ulid.attr(),
         primaryKey: true,
     },
     name: {
