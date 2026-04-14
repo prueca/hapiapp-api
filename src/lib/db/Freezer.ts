@@ -7,8 +7,13 @@ const attributes = {
         ...commonAttr.id,
         primaryKey: true,
     },
-    freezerTypeId: commonAttr.id,
-    accountId: commonAttr.id,
+
+    // We create a copy of the object `commonAttr.id` below.
+    // This fixes the issue of fields not being created because
+    // of the same reference
+
+    freezerTypeId: { ...commonAttr.id },
+    accountId: { ...commonAttr.id },
 }
 
 const options = {
