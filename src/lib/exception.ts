@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
+import { PlainObject } from './types'
 
 const errors = {
     UNKNOWN_ERROR: {
@@ -10,6 +11,11 @@ const errors = {
         errorCode: 'PARSE_ERROR',
         statusCode: StatusCodes.BAD_REQUEST,
         message: 'Invalid data',
+    },
+    INVALID_PAYLOAD: {
+        errorCode: 'INVALID_PAYLOAD',
+        statusCode: StatusCodes.BAD_REQUEST,
+        message: 'Invalid payload',
     },
     NOT_FOUND: {
         errorCode: 'NOT_FOUND',
@@ -31,6 +37,11 @@ const errors = {
         statusCode: StatusCodes.FORBIDDEN,
         message: 'Permission denied',
     },
+    SEQUELIZE_VALIDATION_ERROR: {
+        errorCode: 'SEQUELIZE_VALIDATION_ERROR',
+        statusCode: StatusCodes.UNPROCESSABLE_ENTITY,
+        message: 'Sequelize validation error',
+    },
 }
 
 export default class Exception extends Error {
@@ -38,8 +49,13 @@ export default class Exception extends Error {
 
     statusCode: number
     errorCode: string
+    details?: PlainObject
 
-    constructor(code: keyof typeof errors, message?: string) {
+    constructor(
+        code: keyof typeof errors,
+        message?: string | null,
+        details?: PlainObject,
+    ) {
         const msg =
             message ||
             errors[code as keyof typeof errors]?.message ||
@@ -53,5 +69,6 @@ export default class Exception extends Error {
 
         this.errorCode = code
         this.statusCode = status
+        this.details = details
     }
 }

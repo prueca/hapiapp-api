@@ -25,6 +25,26 @@ import accountCreateHandler from '@/handler/account/accountCreate.handler'
 import accountUpdateHandler from '@/handler/account/accountUpdate.handler'
 import accountDeleteHandler from '@/handler/account/accountDelete.handler'
 
+import freezerTypeCreate from '@/handler/freezerType/freezer.type.create'
+import freezerTypeGetById from '@/handler/freezerType/freezer.type.getById'
+import freezerTypeList from '@/handler/freezerType/freezer.type.list'
+import freezerTypeUpdate from '@/handler/freezerType/freezer.type.update'
+import freezerTypeDelete from '@/handler/freezerType/freezer.type.delete'
+
+import freezerStatusNameCreate from '@/handler/freezerStatusType/freezer.statusType.create'
+import freezerStatusNameGetById from '@/handler/freezerStatusType/freezer.statusType.getById'
+import freezerStatusNameList from '@/handler/freezerStatusType/freezer.statusType.list'
+import freezerStatusNameUpdate from '@/handler/freezerStatusType/freezer.statusType.update'
+import freezerStatusNameDelete from '@/handler/freezerStatusType/freezer.statusType.delete'
+
+import freezerCreate from '@/handler/freezer/freezer.create'
+import freezerGetById from '@/handler/freezer/freezer.getById'
+import freezerUpdate from '@/handler/freezer/freezer.update'
+import freezerBulkUpdate from '@/handler/freezer/freezer.update.bulk'
+import freezerList from '@/handler/freezer/freezer.list'
+import freezerDelete from '@/handler/freezer/freezer.delete'
+import freezerDeleteBulk from '@/handler/freezer/freezer.delete.bulk'
+
 import middleware from '@/middleware/middleware'
 
 const router = Router()
@@ -61,5 +81,40 @@ router.get('/api/accounts/:id', Context.handler(accountGetByIdHandler))
 router.post('/api/accounts', Context.handler(accountCreateHandler))
 router.put('/api/accounts/:id', Context.handler(accountUpdateHandler))
 router.delete('/api/accounts/:id', Context.handler(accountDeleteHandler))
+
+// api: freezer_types
+router.post('/api/freezer_types', Context.handler(freezerTypeCreate))
+router.get('/api/freezer_types/:id', Context.handler(freezerTypeGetById))
+router.get('/api/freezer_types/', Context.handler(freezerTypeList))
+router.put('/api/freezer_types/:id', Context.handler(freezerTypeUpdate))
+router.delete('/api/freezer_types/:id', Context.handler(freezerTypeDelete))
+
+// api: freezer_status_type
+router.post(
+    '/api/freezer_status_type',
+    Context.handler(freezerStatusNameCreate),
+)
+router.get(
+    '/api/freezer_status_type/:id',
+    Context.handler(freezerStatusNameGetById),
+)
+router.get('/api/freezer_status_type', Context.handler(freezerStatusNameList))
+router.put(
+    '/api/freezer_status_type/:id',
+    Context.handler(freezerStatusNameUpdate),
+)
+router.delete(
+    '/api/freezer_status_type/:id',
+    Context.handler(freezerStatusNameDelete),
+)
+
+// api: freezer
+router.post('/api/freezer', Context.handler(freezerCreate))
+router.get('/api/freezer/:id', Context.handler(freezerGetById))
+router.get('/api/freezer', Context.handler(freezerList))
+router.put('/api/freezer/:id', Context.handler(freezerUpdate))
+router.put('/api/freezer', Context.handler(freezerBulkUpdate))
+router.delete('/api/freezer/:id', Context.handler(freezerDelete))
+router.delete('/api/freezer', Context.handler(freezerDeleteBulk))
 
 export default router

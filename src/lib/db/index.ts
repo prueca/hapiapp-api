@@ -1,7 +1,8 @@
-// Export model here
-// E.g.: export { default as Model } from './model'
-
+export { default as sequelize } from './sequelize'
 export { default as User } from './users'
 export { default as UserRole } from './userRole'
 export { default as AccountType } from './accountType'
 export { default as Account } from './account'
+export { default as FreezerType } from './FreezerType'
+export { default as FreezerStatusType } from './FreezerStatusType'
+export { default as Freezer } from './Freezer'

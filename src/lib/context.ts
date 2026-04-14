@@ -5,6 +5,7 @@ import assert from 'assert'
 
 import { Middleware, PlainObject, RequestHandler } from './types'
 import Exception from './exception'
+import * as db from './db'
 
 export default class Context {
     static _bindings = new WeakMap<Request, Context>()
@@ -15,6 +16,8 @@ export default class Context {
     public params: PlainObject = {}
     public headers: PlainObject = {}
     public locals: PlainObject = {}
+
+    public db = db
 
     public user: PlainObject = {}
 
@@ -118,11 +121,13 @@ export default class Context {
         const statusCode = e.statusCode || UNKNOWN_ERROR.statusCode
         const errorCode = e.errorCode || UNKNOWN_ERROR.errorCode
         const message = e.message || UNKNOWN_ERROR.message
+        const details = e.details || undefined
 
         return this._res.status(statusCode).json({
             error: {
                 code: errorCode,
-                message: message,
+                message,
+                details,
             },
         })
     }

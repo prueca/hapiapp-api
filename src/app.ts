@@ -4,10 +4,15 @@ import cors from 'cors'
 import Context from '@/lib/context'
 import routes from './route'
 import cookieParser from 'cookie-parser'
+import { sequelize } from './lib/db'
 
 const start = async () => {
     const app = express()
     const PORT = process.env.PORT || '8000'
+    const FORCE_SYNC = process.env.FORCE_SYNC === '1'
+
+    await sequelize.authenticate()
+    await sequelize.sync({ force: FORCE_SYNC })
 
     app.use(
         cors({
