@@ -39,7 +39,7 @@ export default async (ctx: Context) => {
         where[sortBy] = { [comparison]: nextCursor }
     }
 
-    const data = await ctx.db.FreezerStatusName.findAll({
+    const data = await ctx.db.FreezerStatusType.findAll({
         limit,
         where,
         order: [[sortBy, sortOrder]],

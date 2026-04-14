@@ -13,7 +13,7 @@ export default async (ctx: Context) => {
         throw new Exception('INVALID_PAYLOAD', null, parsed.error.issues)
     }
 
-    const data = await ctx.db.FreezerStatusName.findByPk(parsed.data.id)
+    const data = await ctx.db.FreezerStatusType.findByPk(parsed.data.id)
 
     if (!data) {
         throw new Exception('NOT_FOUND')

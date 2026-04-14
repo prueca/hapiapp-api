@@ -17,13 +17,13 @@ const attributes = {
 const options = {
     sequelize,
     freezeTableName: true,
-    tableName: 'freezer_status_name',
+    tableName: 'freezer_status_type',
     timestamps: true,
     paranoid: true,
 }
 
-class FreezerStatusName extends Model {}
+class FreezerStatusType extends Model {}
 
-FreezerStatusName.init(attributes, options)
+FreezerStatusType.init(attributes, options)
 
-export default FreezerStatusName
+export default FreezerStatusType

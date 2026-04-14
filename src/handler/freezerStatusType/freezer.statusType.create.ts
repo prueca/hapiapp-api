@@ -15,7 +15,7 @@ export default async (ctx: Context) => {
 
     try {
         return {
-            data: await ctx.db.FreezerStatusName.create(parsed.data),
+            data: await ctx.db.FreezerStatusType.create(parsed.data),
         }
     } catch (error: any) {
         switch (error.name) {
