@@ -3,7 +3,7 @@ import Exception from '@/lib/exception'
 import z from 'zod'
 
 const schema = z.object({
-    name: z.string().nonempty(),
+    type: z.string().nonempty(),
 })
 
 export default async (ctx: Context) => {

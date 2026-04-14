@@ -7,7 +7,7 @@ const attributes = {
         ...ulid.attr(),
         primaryKey: true,
     },
-    name: {
+    type: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
