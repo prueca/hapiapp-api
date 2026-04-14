@@ -1,13 +1,13 @@
-import { UserRole } from '@/lib/db'
+import AccountType from '@/lib/db/accountType'
 import sequelize from '@/lib/db/sequelize'
-import { mockUserRoles } from './userRole.mock'
+import { mockAccountTypes } from './accountType.mock'
 
 export default async function () {
     try {
-        await UserRole.bulkCreate(mockUserRoles, {
+        await AccountType.bulkCreate(mockAccountTypes, {
             transaction: await sequelize.transaction(),
         })
-        console.log('Data seeded successfully.')
+        console.log('Account type data seeded successfully.')
     } catch (error) {
         console.error('Seed failed:', error)
     }
