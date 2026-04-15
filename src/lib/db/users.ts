@@ -1,45 +1,48 @@
 import sequelize from './sequelize'
-import { DataTypes } from 'sequelize'
+import { DataTypes, Model } from 'sequelize'
+import { ulid } from '@/lib/util'
 
-const User = sequelize.define(
-    'user',
-    {
-        id: {
-            type: DataTypes.UUIDV4,
-            primaryKey: true,
-            allowNull: false,
-            defaultValue: DataTypes.UUIDV4,
-        },
-        firstName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        middleName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        role: {
-            type: DataTypes.UUIDV4,
-            allowNull: false,
-        },
+const attributes = {
+    id: {
+        ...ulid.attr(),
+        primaryKey: true,
     },
-    {
-        freezeTableName: true,
-        tableName: 'user',
-        timestamps: true,
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false,
     },
-)
+    middleName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    accountId: ulid.attr(),
+}
+
+const options = {
+    sequelize,
+    freezeTableName: true,
+    tableName: 'user',
+    timestamps: true,
+}
+
+class User extends Model {}
+
+User.init(attributes, options)
 
 export default User
