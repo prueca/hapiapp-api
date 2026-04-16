@@ -1,31 +1,16 @@
 import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
-import Context from '@/lib/context'
+import { serve } from '@hono/node-server'
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import onError from './handler/onError'
 import routes from './route'
-import cookieParser from 'cookie-parser'
-import { sequelize } from './lib/db'
 
-const start = async () => {
-    const app = express()
-    const PORT = process.env.PORT || '8000'
-    const FORCE_SYNC = process.env.FORCE_SYNC === '1'
+const app = new Hono()
 
-    await sequelize.authenticate()
-    await sequelize.sync({ force: FORCE_SYNC })
+app.use(cors())
+app.route('/api', routes)
+app.onError(onError)
 
-    app.use(
-        cors({
-            origin: process.env.FRONTEND_URL,
-            credentials: true,
-        }),
-    )
-
-    app.use(cookieParser())
-    app.use(express.json())
-    app.use(Context.attach())
-    app.use(routes)
-    app.listen(PORT, () => console.log(`App running on port ${PORT}`))
-}
-
-start()
+serve(app, (info) => {
+    console.log(`App is running on http://localhost:${info.port}`)
+})

@@ -1,6 +1,6 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
-import { ulid } from '@/lib/util'
+import ulid from '@/lib/util/ulid'
 
 const attributes = {
     id: {
@@ -42,5 +42,6 @@ const options = {
 class FreezerType extends Model {}
 
 FreezerType.init(attributes, options)
+FreezerType.sync()
 
 export default FreezerType
