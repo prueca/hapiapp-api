@@ -2,8 +2,8 @@
   "name": "hapiapp-api",
   "type": "module",
   "scripts": {
-    "dev": "bun run --hot src/app.ts",
-    "start": "bun run src/app.ts"
+    "dev": "bun --hot src/app.ts",
+    "start": "bun src/app.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.14",
