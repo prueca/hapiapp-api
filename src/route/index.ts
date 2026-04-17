@@ -8,5 +8,6 @@ routes.post('/freezer_types', freezerType.create)
 routes.get('/freezer_types/:id', freezerType.getById)
 routes.post('/freezer_types/search', freezerType.search)
 routes.put('/freezer_types/:id', freezerType.update)
+routes.delete('/freezer_types/:id', freezerType.delete)
 
 export default routes
