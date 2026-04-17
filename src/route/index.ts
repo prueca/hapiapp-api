@@ -1,11 +1,11 @@
 import { Hono } from 'hono'
 import freezerType from '@/handler/freezerType'
 
-const main = new Hono()
+const routes = new Hono()
 
 // Freezer Type
-main.post('/freezer_types', freezerType.create)
-main.get('/freezer_types/:id', freezerType.getById)
-main.post('/freezer_types/search', freezerType.search)
+routes.post('/freezer_types', freezerType.create)
+routes.get('/freezer_types/:id', freezerType.getById)
+routes.post('/freezer_types/search', freezerType.search)
 
-export default main
+export default routes
