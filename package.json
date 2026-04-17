@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --hot src/app.ts",
-    "debug": "bun --hot --inspect-wait src/app.ts",
+    "debug": "bun --hot --inspect src/app.ts",
     "start": "bun src/app.ts"
   },
   "dependencies": {
