@@ -1,5 +1,4 @@
-import freezerTypeCreate from './freezerType.create'
-
 export default {
-    create: freezerTypeCreate,
+    create: (await import('./freezerType.create')).default,
+    getById: (await import('./freezerType.getById')).default,
 }
