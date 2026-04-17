@@ -2,9 +2,8 @@
   "name": "hapiapp-api",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/app.ts",
-    "build": "tsc",
-    "start": "node dist/app.js"
+    "dev": "bun run --hot src/app.ts",
+    "start": "bun run src/app.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.14",

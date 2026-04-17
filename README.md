@@ -1,6 +1,6 @@
 ```
-yarn install
-yarn run dev
+bun install
+bun run dev
 ```
 
 ```
