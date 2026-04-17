@@ -17,7 +17,7 @@ export default async (c: Context) => {
 
     if (!parsed.success) {
         throw new HTTPException(StatusCodes.BAD_REQUEST, {
-            message: parsed.error.message,
+            message: ReasonPhrases.BAD_REQUEST,
             cause: parsed.error.issues,
         })
     }
