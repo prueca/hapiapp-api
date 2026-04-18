@@ -6,9 +6,17 @@
 async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('user_role', {
         id: {
-            type: Sequelize.UUIDV4,
+            type: Sequelize.STRING(26),
             primaryKey: true,
-            defaultValue: Sequelize.UUIDV4,
+            allowNull: false,
+            defaulValue: () => ulid(),
+            validate: {
+                isULID(value) {
+                    if (!/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
+            },
         },
         role: {
             type: Sequelize.STRING,
@@ -18,10 +26,12 @@ async function up(queryInterface, Sequelize) {
         created_at: {
             type: Sequelize.DATE,
             allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updated_at: {
             type: Sequelize.DATE,
             allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
     })
 }
