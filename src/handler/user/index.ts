@@ -1,0 +1,7 @@
+export default {
+    create: (await import('./user.create')).default,
+    get: (await import('./user.get')).default,
+    getById: (await import('./user.getById')).default,
+    update: (await import('./user.update')).default,
+    delete: (await import('./user.delete')).default,
+}
