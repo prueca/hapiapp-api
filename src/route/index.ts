@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import freezerType from '@/handler/freezerType'
+import freezerStatusType from '@/handler/freezerStatusType'
 import userRole from '@/handler/userRole'
 import user from '@/handler/user'
 
@@ -11,6 +12,13 @@ routes.get('/freezer_types/:id', freezerType.getById)
 routes.post('/freezer_types/search', freezerType.search)
 routes.put('/freezer_types/:id', freezerType.update)
 routes.delete('/freezer_types/:id', freezerType.delete)
+
+// Freezer Status Type
+routes.post('/freezer_status_types', freezerStatusType.create)
+routes.get('/freezer_status_types/:id', freezerStatusType.getById)
+routes.post('/freezer_status_types/search', freezerStatusType.search)
+routes.put('/freezer_status_types/:id', freezerStatusType.update)
+routes.delete('/freezer_status_types/:id', freezerStatusType.delete)
 
 // User Role
 routes.post('/user_roles', userRole.create)

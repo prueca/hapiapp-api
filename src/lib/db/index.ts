@@ -1,3 +1,4 @@
+import FreezerStatusType from './FreezerStatusType'
 import FreezerType from './FreezerType'
 import UserRole from './UserRole'
 import User from './User'
@@ -7,6 +8,7 @@ const models = {
     FreezerType,
     UserRole,
     User,
+    FreezerStatusType,
 }
 
 export { sequelize }
