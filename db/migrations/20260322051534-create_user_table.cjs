@@ -9,7 +9,7 @@ async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING(26),
             primaryKey: true,
             allowNull: false,
-            defaultValue: Sequelize.literal('gen_random_uuid()::text'),
+            defaultValue: () => ulid(),
             validate: {
                 isULID(value) {
                     if (!/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
@@ -39,17 +39,25 @@ async function up(queryInterface, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false,
         },
-        role: {
-            type: Sequelize.UUID,
+        role_id: {
+            type: Sequelize.STRING(26),
             allowNull: false,
+            defaultValue: null,
+            validate: {
+                isULID(value) {
+                    if (value && !/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
+            },
         },
         account_id: {
             type: Sequelize.STRING(26),
-            allowNull: false,
-            defaultValue: Sequelize.literal('gen_random_uuid()::text'),
+            allowNull: true,
+            defaultValue: null,
             validate: {
                 isULID(value) {
-                    if (!/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                    if (value && !/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
                         throw new Error('Invalid ULID')
                     }
                 },
