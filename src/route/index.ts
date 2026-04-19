@@ -22,7 +22,7 @@ routes.delete('/user_roles/:id', userRole.delete)
 // User
 routes.post('/users', user.create)
 routes.get('/users/:id', user.getById)
-routes.post('/users/search', user.search)
+routes.get('/users', user.get)
 routes.put('/users/:id', user.update)
 routes.delete('/users/:id', user.delete)
 
