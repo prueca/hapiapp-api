@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import freezerType from '@/handler/freezerType'
 import freezerStatusType from '@/handler/freezerStatusType'
+import freezer from '@/handler/freezer'
 import userRole from '@/handler/userRole'
 import user from '@/handler/user'
 
@@ -9,16 +10,25 @@ const routes = new Hono()
 // Freezer Type
 routes.post('/freezer_types', freezerType.create)
 routes.get('/freezer_types/:id', freezerType.getById)
-routes.post('/freezer_types/search', freezerType.search)
 routes.put('/freezer_types/:id', freezerType.update)
 routes.delete('/freezer_types/:id', freezerType.delete)
+routes.post('/freezer_types/search', freezerType.search)
 
 // Freezer Status Type
 routes.post('/freezer_status_types', freezerStatusType.create)
 routes.get('/freezer_status_types/:id', freezerStatusType.getById)
-routes.post('/freezer_status_types/search', freezerStatusType.search)
 routes.put('/freezer_status_types/:id', freezerStatusType.update)
 routes.delete('/freezer_status_types/:id', freezerStatusType.delete)
+routes.post('/freezer_status_types/search', freezerStatusType.search)
+
+// Freezer
+routes.post('/freezers', freezer.create)
+routes.get('/freezers/:id', freezer.getById)
+routes.put('/freezers/:id', freezer.update)
+routes.delete('/freezers/:id', freezer.delete)
+routes.post('/freezers/search', freezer.search)
+routes.put('/freezers/bulk_update', freezer.bulkUpdate)
+routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
 
 // User Role
 routes.post('/user_roles', userRole.create)
