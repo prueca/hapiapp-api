@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import accountType from '@/handler/accountType'
 import freezerType from '@/handler/freezerType'
 import userRole from '@/handler/userRole'
 import user from '@/handler/user'
@@ -18,6 +19,13 @@ routes.get('/user_roles/:id', userRole.getById)
 routes.post('/user_roles/search', userRole.search)
 routes.put('/user_roles/:id', userRole.update)
 routes.delete('/user_roles/:id', userRole.delete)
+
+// Account Type
+routes.post('/account_types', accountType.create)
+routes.get('/account_types/:id', accountType.getById)
+routes.get('/account_types', accountType.get)
+routes.put('/account_types/:id', accountType.update)
+routes.delete('/account_types/:id', accountType.delete)
 
 // User
 routes.post('/users', user.create)
