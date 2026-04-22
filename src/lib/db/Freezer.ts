@@ -3,18 +3,13 @@ import { Model } from 'sequelize'
 import ulid from '@/lib/util/ulid'
 
 const attributes = {
-    id: {
-        ...ulid.attr(),
+    id: ulid.attr({
         primaryKey: true,
-    },
-    freezerTypeId: {
-        ...ulid.attr(),
-        allowNull: false,
-    },
-    accountId: {
-        ...ulid.attr(),
+    }),
+    freezerTypeId: ulid.attr(),
+    accountId: ulid.attr({
         allowNull: true,
-    },
+    }),
 }
 
 const options = {

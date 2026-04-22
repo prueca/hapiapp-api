@@ -4,15 +4,18 @@ import { DataTypes } from 'sequelize'
 const ulid = monotonicFactory()
 const generate = () => ulid()
 
-const attr = ({ allowNull = false, primaryKey = false, ...options } = {}) => {
+const attr = ({ allowNull = true, primaryKey = false, ...options } = {}) => {
     // We use this function to define id attributes for our models.
     // This fixes the issue of id fields not being created because
     // of the same reference when we define multiple fields with
     // same object.
 
+    // Note: We only set allowNull to true if primaryKey is false.
+
     return {
         type: DataTypes.STRING(26),
-        allowNull: false,
+        primaryKey,
+        allowNull: allowNull && !primaryKey,
         defaultValue: generate,
         validate: {
             isULID(value: string) {
