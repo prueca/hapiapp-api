@@ -6,11 +6,19 @@
 async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('account_type', {
         id: {
-            type: Sequelize.UUIDV4,
+            type: Sequelize.STRING(26),
             primaryKey: true,
-            defaultValue: Sequelize.UUIDV4,
+            allowNull: false,
+            defaultValue: () => ulid.generate(),
+            validate: {
+                isULID(value) {
+                    if (!/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
+            },
         },
-        account: {
+        type: {
             type: Sequelize.STRING,
             allowNull: false,
             unique: true,
@@ -18,10 +26,12 @@ async function up(queryInterface, Sequelize) {
         created_at: {
             type: Sequelize.DATE,
             allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
         updated_at: {
             type: Sequelize.DATE,
             allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         },
     })
 }
