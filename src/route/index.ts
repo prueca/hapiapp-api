@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import accountType from '@/handler/accountType'
+import account from '@/handler/account'
 import freezerType from '@/handler/freezerType'
 import freezerStatusType from '@/handler/freezerStatusType'
 import freezer from '@/handler/freezer'
@@ -31,12 +32,12 @@ routes.post('/freezers/search', freezer.search)
 routes.put('/freezers/bulk_update', freezer.bulkUpdate)
 routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
 
-// User Role
-routes.post('/user_roles', userRole.create)
-routes.get('/user_roles/:id', userRole.getById)
-routes.post('/user_roles/search', userRole.search)
-routes.put('/user_roles/:id', userRole.update)
-routes.delete('/user_roles/:id', userRole.delete)
+// Account
+routes.post('/accounts', account.create)
+routes.get('/accounts/:id', account.getById)
+routes.get('/accounts', account.get)
+routes.put('/accounts/:id', account.update)
+routes.delete('/accounts/:id', account.delete)
 
 // Account Type
 routes.post('/account_types', accountType.create)
@@ -51,5 +52,12 @@ routes.get('/users/:id', user.getById)
 routes.get('/users', user.get)
 routes.put('/users/:id', user.update)
 routes.delete('/users/:id', user.delete)
+
+// User Role
+routes.post('/user_roles', userRole.create)
+routes.get('/user_roles/:id', userRole.getById)
+routes.post('/user_roles/search', userRole.search)
+routes.put('/user_roles/:id', userRole.update)
+routes.delete('/user_roles/:id', userRole.delete)
 
 export default routes
