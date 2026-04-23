@@ -29,3 +29,4 @@ lerna-debug.log*
 *.sqlite
 config
 build/
+tests/mock
