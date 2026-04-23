@@ -1,56 +1,87 @@
 'use strict'
 
 /**
- * @type {import('sequelize-cli').Migration}
+ * @type {import('sequelize').Migration}
  */
-module.exports = {
-    async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('account', {
-            id: {
-                type: Sequelize.UUIDV4,
-                primaryKey: true,
-                defaultValue: Sequelize.UUIDV4,
-                allowNull: false,
+async function up(queryInterface, Sequelize) {
+    await queryInterface.createTable('account', {
+        id: {
+            type: Sequelize.STRING(26),
+            primaryKey: true,
+            allowNull: false,
+            defaultValue: () => ulid(),
+            validate: {
+                isULID(value) {
+                    if (!/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
             },
-            name: {
-                type: Sequelize.STRING,
-                allowNull: false,
-                unique: true,
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false,
+            unique: true,
+        },
+        address: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        phone: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        isr_code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        sap_code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        company_code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
+        account_type_id: {
+            type: Sequelize.STRING(26),
+            allowNull: false,
+            defaultValue: null,
+            validate: {
+                isULID(value) {
+                    if (value && !/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
             },
-            address: {
-                type: Sequelize.STRING,
-                allowNull: false,
+        },
+        associate_id: {
+            type: Sequelize.STRING(26),
+            allowNull: true,
+            defaultValue: null,
+            validate: {
+                isULID(value) {
+                    if (value && !/^[0-9A-HJKMNP-RTUVWXY]{26}$/.test(value)) {
+                        throw new Error('Invalid ULID')
+                    }
+                },
             },
-            isr_code: {
-                type: Sequelize.STRING,
-            },
-            sap_code: {
-                type: Sequelize.STRING,
-            },
-            company_code: {
-                type: Sequelize.STRING,
-                allowNull: false,
-            },
-            account_type_id: {
-                type: Sequelize.UUIDV4,
-                allowNull: false,
-            },
-            user_id: {
-                type: Sequelize.UUIDV4,
-                allowNull: false,
-            },
-            created_at: {
-                type: Sequelize.DATE,
-                allowNull: false,
-            },
-            updated_at: {
-                type: Sequelize.DATE,
-                allowNull: false,
-            },
-        })
-    },
-
-    async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('account')
-    },
+        },
+        created_at: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updated_at: {
+            type: Sequelize.DATE,
+            allowNull: false,
+            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+    })
 }
+
+async function down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('account')
+}
+
+module.exports = { up, down }
