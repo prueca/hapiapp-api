@@ -6,7 +6,7 @@ const attributes = {
     id: ulid.attr({
         primaryKey: true,
     }),
-    role: {
+    type: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
@@ -16,19 +16,14 @@ const attributes = {
 const options = {
     sequelize,
     freezeTableName: true,
-    tableName: 'user_role',
+    tableName: 'freezer_status_type',
     timestamps: true,
-    indexes: [
-        {
-            unique: true,
-            fields: ['role'],
-        },
-    ],
+    paranoid: true,
 }
 
-class UserRole extends Model {}
+class FreezerStatusType extends Model {}
 
-UserRole.init(attributes, options)
-UserRole.sync()
+FreezerStatusType.init(attributes, options)
+FreezerStatusType.sync()
 
-export default UserRole
+export default FreezerStatusType

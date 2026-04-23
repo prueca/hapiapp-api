@@ -1,5 +1,7 @@
 import AccountType from './AccountType'
+import FreezerStatusType from './FreezerStatusType'
 import FreezerType from './FreezerType'
+import Freezer from './Freezer'
 import UserRole from './UserRole'
 import User from './User'
 import sequelize from './sequelize'
@@ -7,6 +9,8 @@ import sequelize from './sequelize'
 const models = {
     AccountType,
     FreezerType,
+    FreezerStatusType,
+    Freezer,
     UserRole,
     User,
 }
