@@ -3,10 +3,9 @@ import { DataTypes, Model } from 'sequelize'
 import ulid from '@/lib/util/ulid'
 
 const attributes = {
-    id: {
-        ...ulid.attr(),
+    id: ulid.attr({
         primaryKey: true,
-    },
+    }),
     type: {
         type: DataTypes.STRING,
         allowNull: false,
