@@ -5,8 +5,10 @@ import Freezer from './Freezer'
 import UserRole from './UserRole'
 import User from './User'
 import sequelize from './sequelize'
+import Account from './Account'
 
 const models = {
+    Account,
     AccountType,
     FreezerType,
     FreezerStatusType,
