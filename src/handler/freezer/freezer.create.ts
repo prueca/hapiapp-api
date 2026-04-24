@@ -20,6 +20,26 @@ export default async (c: Context) => {
         })
     }
 
+    const { accountId, freezerTypeId } = parsed.data
+
+    if (accountId) {
+        const account = await db.Account.findByPk(accountId)
+
+        if (!account) {
+            throw new HTTPException(StatusCodes.NOT_FOUND, {
+                message: ReasonPhrases.NOT_FOUND,
+            })
+        }
+    }
+
+    const freezerType = await db.FreezerType.findByPk(freezerTypeId)
+
+    if (!freezerType) {
+        throw new HTTPException(StatusCodes.NOT_FOUND, {
+            message: ReasonPhrases.NOT_FOUND,
+        })
+    }
+
     try {
         return c.json({
             data: await db.Freezer.create(parsed.data),
