@@ -38,6 +38,26 @@ export default async (c: Context) => {
         })
     }
 
+    if (changes.accountId) {
+        const account = await db.Account.findByPk(changes.accountId)
+
+        if (!account) {
+            throw new HTTPException(StatusCodes.NOT_FOUND, {
+                message: ReasonPhrases.NOT_FOUND,
+            })
+        }
+    }
+
+    if (changes.freezerTypeId) {
+        const freezerType = await db.FreezerType.findByPk(changes.freezerTypeId)
+
+        if (!freezerType) {
+            throw new HTTPException(StatusCodes.NOT_FOUND, {
+                message: ReasonPhrases.NOT_FOUND,
+            })
+        }
+    }
+
     try {
         return c.json({
             data: await record.update(changes),
