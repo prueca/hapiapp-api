@@ -41,8 +41,17 @@ export default async (c: Context) => {
         nextCursor,
     } = parsed.data
 
-    const where: Record<string, any> = _.mapValues(filters, (value) => {
-        return { [Op.like]: `%${value}%` }
+    const where: Record<string, any> = {}
+
+    _.map(filters, (value, key) => {
+        switch (key) {
+            case 'brand':
+            case 'type':
+                where[key] = { [Op.like]: `%${value}%` }
+                break
+            default:
+                where[key] = value
+        }
     })
 
     if (nextCursor) {

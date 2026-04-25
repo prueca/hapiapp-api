@@ -38,9 +38,7 @@ export default async (c: Context) => {
         nextCursor,
     } = parsed.data
 
-    const where: Record<string, any> = _.mapValues(filters, (value) => {
-        return { [Op.like]: `%${value}%` }
-    })
+    const where: Record<string, any> = filters ?? {}
 
     if (nextCursor) {
         const comparison = sortOrder === 'asc' ? Op.gt : Op.lt
