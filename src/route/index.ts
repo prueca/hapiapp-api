@@ -4,6 +4,7 @@ import account from '@/handler/account'
 import freezerType from '@/handler/freezerType'
 import freezerStatusType from '@/handler/freezerStatusType'
 import freezer from '@/handler/freezer'
+import freezerStatus from '@/handler/freezerStatus'
 import userRole from '@/handler/userRole'
 import user from '@/handler/user'
 
@@ -31,6 +32,12 @@ routes.delete('/freezers/:id', freezer.delete)
 routes.post('/freezers/search', freezer.search)
 routes.put('/freezers/bulk_update', freezer.bulkUpdate)
 routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
+
+// Freezer Status
+routes.post('/freezer_status', freezerStatus.create)
+routes.get('/freezer_status/:id', freezerStatus.getById)
+routes.put('/freezer_status/:id', freezerStatus.update)
+routes.post('/freezer_status/search', freezerStatus.search)
 
 // Account
 routes.post('/accounts', account.create)
