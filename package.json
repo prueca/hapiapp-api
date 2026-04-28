@@ -24,6 +24,8 @@
     "@types/node": "^20.11.17",
     "csvtojson": "^2.0.14",
     "sequelize-cli": "^6.6.5",
-    "typescript": "^5.8.3"
-  }
+    "typescript": "^5.8.3",
+    "@types/bun": "latest"
+  },
+  "private": true
 }

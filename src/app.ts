@@ -5,7 +5,7 @@ import { cors } from 'hono/cors'
 import onError from './handler/onError'
 import routes from './route'
 
-const app = new Hono()
+export const app = new Hono()
 
 app.use(cors())
 app.route('/api', routes)
