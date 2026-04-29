@@ -5,47 +5,41 @@ import _ from 'lodash'
 const BASE_URL = 'http://localhost:3000/api'
 
 describe('Freezer Type - Update Endpoint', () => {
+    const data = {
+        brand: 'Haier',
+        type: 'swing-up',
+        year: 2021,
+        capacity: '16cu',
+    }
+
     test('PUT /api/freezer_types/:id should update a record', async () => {
-        const freezerTypeId = '01KQ04VBQYZ4SWNP1FE4NJBDSY'
-        const req = new Request(`${BASE_URL}/freezer_types/${freezerTypeId}`, {
+        const recordId = '01KQCH62FQC36MBER9VV0X2CSH'
+        const req = new Request(`${BASE_URL}/freezer_types/${recordId}`, {
             method: 'PUT',
-            body: JSON.stringify({
-                brand: 'Haier - edited',
-                type: 'swing-up',
-                year: 2021,
-                capacity: '16cu',
-            }),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
         })
 
         const res = await app.fetch(req)
-        let body = await res.json()
-
-        if (body.data) {
-            body.data = _.pick(body.data, ['brand', 'type', 'year', 'capacity'])
-        }
+        const response = await res.json()
+        const record = _.pick(response.data, [
+            'brand',
+            'type',
+            'year',
+            'capacity',
+        ])
 
         expect(res.status).toBe(200)
-        expect(body.data).toEqual({
-            brand: 'Haier - edited',
-            type: 'swing-up',
-            year: 2021,
-            capacity: '16cu',
-        })
+        expect(record).toEqual(data)
     })
 
     test('PUT /api/freezer_types/:id should resolve to conflict', async () => {
-        const freezerTypeId = '01KQ04VBQYZ4SWNP1FE4NJBDSY'
-        const req = new Request(`${BASE_URL}/freezer_types/${freezerTypeId}`, {
+        const recordId = '01KQCHKMCB6BV9J9WG6FSGKZQH'
+        const req = new Request(`${BASE_URL}/freezer_types/${recordId}`, {
             method: 'PUT',
-            body: JSON.stringify({
-                brand: 'Haier - edited',
-                type: 'swing-up',
-                year: 2021,
-                capacity: '16cu',
-            }),
+            body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
