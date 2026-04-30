@@ -20,9 +20,11 @@ describe('Freezer Type - Create Endpoint', () => {
 
         const res = await app.fetch(req)
         const response = await res.json()
+        const record = _.pick(response?.data, ['id', 'type'])
 
         expect(res.status).toBe(200)
-        expect(response).toEqual(data)
+        expect(record.id).toBeString()
+        expect(_.omit(record, ['id'])).toEqual(data)
     })
 
     test('POST /api/freezer_status_types should resolve to conflict', async () => {
