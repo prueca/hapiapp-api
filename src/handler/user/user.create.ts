@@ -25,6 +25,15 @@ export default async (c: Context) => {
         })
     }
 
+    const { accountId } = parsed.data
+    const account = await db.Account.findByPk(accountId)
+
+    if (!account) {
+        throw new HTTPException(StatusCodes.NOT_FOUND, {
+            message: 'Account not found',
+        })
+    }
+
     try {
         return c.json({
             data: await db.User.create(parsed.data),

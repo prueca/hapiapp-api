@@ -26,6 +26,17 @@ export default async (c: Context) => {
         })
     }
 
+    const { accountTypeId } = parsed.data
+    const accountType = await db.AccountType.findByPk(accountTypeId)
+
+    if (!accountType) {
+        throw new HTTPException(StatusCodes.NOT_FOUND, {
+            message: 'Account type not found',
+        })
+    }
+
+    // TODO: if associateId is provided, check if it exists
+
     try {
         return c.json({
             data: await db.Account.create(parsed.data),

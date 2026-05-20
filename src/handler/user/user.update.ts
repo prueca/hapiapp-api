@@ -35,6 +35,18 @@ export default async (c: Context) => {
         })
     }
 
+    const { accountId } = parsed.data
+
+    if (accountId) {
+        const account = await db.Account.findByPk(accountId)
+
+        if (!account) {
+            throw new HTTPException(StatusCodes.NOT_FOUND, {
+                message: 'Account not found',
+            })
+        }
+    }
+
     try {
         const changes = _.pick(parsed.data, [
             'firstName',

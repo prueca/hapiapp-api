@@ -27,7 +27,7 @@ export default async (c: Context) => {
 
         if (!account) {
             throw new HTTPException(StatusCodes.NOT_FOUND, {
-                message: ReasonPhrases.NOT_FOUND,
+                message: 'Account not found',
             })
         }
     }
@@ -36,7 +36,7 @@ export default async (c: Context) => {
 
     if (!freezerType) {
         throw new HTTPException(StatusCodes.NOT_FOUND, {
-            message: ReasonPhrases.NOT_FOUND,
+            message: 'Freezer type not found',
         })
     }
 
