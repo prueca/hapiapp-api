@@ -13,8 +13,8 @@ const schema = z.object({
             middleName: z.string().optional(),
             lastName: z.string().optional(),
             username: z.string().optional(),
-            role: z.string().optional(),
-            accountId: z.string().optional(),
+            role: z.ulid().optional(),
+            accountId: z.ulid().optional(),
         })
         .optional(),
     limit: z.coerce.number().positive().optional(),
@@ -32,7 +32,7 @@ const schema = z.object({
         ])
         .optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
-    nextCursor: z.string().nullable().optional(),
+    nextCursor: z.ulid().nullable().optional(),
 })
 
 export default async (c: Context) => {

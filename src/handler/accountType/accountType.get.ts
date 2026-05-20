@@ -15,7 +15,7 @@ const schema = z.object({
     limit: z.coerce.number().positive().optional(),
     sortBy: z.enum(['id', 'createdAt', 'updatedAt', 'type']).optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
-    nextCursor: z.string().nullable().optional(),
+    nextCursor: z.ulid().nullable().optional(),
 })
 
 export default async (c: Context) => {

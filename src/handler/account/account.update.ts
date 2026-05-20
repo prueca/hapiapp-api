@@ -12,8 +12,8 @@ const schema = z.object({
     isrCode: z.string().nonempty().optional(),
     sapCode: z.string().nonempty().optional(),
     companyCode: z.string().nonempty().optional(),
-    accountTypeId: z.string().nonempty().optional(),
-    associateId: z.string().optional(),
+    accountTypeId: z.ulid().nonempty().optional(),
+    associateId: z.ulid().optional(),
 })
 
 export default async (c: Context) => {

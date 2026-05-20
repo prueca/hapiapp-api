@@ -15,8 +15,8 @@ const schema = z.object({
             isrCode: z.string().optional(),
             sapCode: z.string().optional(),
             companyCode: z.string().optional(),
-            accountTypeId: z.string().optional(),
-            associateId: z.string().optional(),
+            accountTypeId: z.ulid().optional(),
+            associateId: z.ulid().optional(),
         })
         .optional(),
     limit: z.coerce.number().positive().optional(),
@@ -36,7 +36,7 @@ const schema = z.object({
         ])
         .optional(),
     sortOrder: z.enum(['asc', 'desc']).optional(),
-    nextCursor: z.string().nullable().optional(),
+    nextCursor: z.ulid().nullable().optional(),
 })
 
 export default async (c: Context) => {
