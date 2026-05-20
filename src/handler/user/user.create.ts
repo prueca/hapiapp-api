@@ -10,7 +10,7 @@ const schema = z.object({
     lastName: z.string().nonempty(),
     username: z.string().nonempty(),
     password: z.string().nonempty(),
-    role: z.ulid().nonempty(),
+    roleId: z.ulid().nonempty(),
     accountId: z.ulid().nonempty(),
 })
 
@@ -25,12 +25,21 @@ export default async (c: Context) => {
         })
     }
 
-    const { accountId } = parsed.data
-    const account = await db.Account.findByPk(accountId)
+    const { accountId, roleId } = parsed.data
+    const [account, role] = await Promise.all([
+        db.Account.findByPk(accountId),
+        db.UserRole.findByPk(roleId),
+    ])
 
     if (!account) {
         throw new HTTPException(StatusCodes.NOT_FOUND, {
             message: 'Account not found',
+        })
+    }
+
+    if (!role) {
+        throw new HTTPException(StatusCodes.NOT_FOUND, {
+            message: 'Role not found',
         })
     }
 

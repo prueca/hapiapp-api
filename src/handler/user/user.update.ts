@@ -11,7 +11,7 @@ const schema = z.object({
     lastName: z.string().nonempty().optional(),
     username: z.string().nonempty().optional(),
     password: z.string().nonempty().optional(),
-    role: z.ulid().nonempty().optional(),
+    roleId: z.ulid().nonempty().optional(),
     accountId: z.ulid().nonempty().optional(),
 })
 
@@ -54,7 +54,7 @@ export default async (c: Context) => {
             'lastName',
             'username',
             'password',
-            'role',
+            'roleId',
             'accountId',
         ])
 

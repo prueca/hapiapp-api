@@ -13,7 +13,7 @@ const schema = z.object({
             middleName: z.string().optional(),
             lastName: z.string().optional(),
             username: z.string().optional(),
-            role: z.ulid().optional(),
+            roleId: z.ulid().optional(),
             accountId: z.ulid().optional(),
         })
         .optional(),
@@ -27,7 +27,7 @@ const schema = z.object({
             'middleName',
             'lastName',
             'username',
-            'role',
+            'roleId',
             'accountId',
         ])
         .optional(),
