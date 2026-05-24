@@ -7,6 +7,7 @@ import User from './User'
 import sequelize from './sequelize'
 import Account from './Account'
 import CabconCode from './CabconCode'
+import Cabcon from './Cabcon'
 
 const models = {
     Account,
@@ -17,6 +18,7 @@ const models = {
     UserRole,
     User,
     CabconCode,
+    Cabcon,
 }
 
 export { sequelize }
