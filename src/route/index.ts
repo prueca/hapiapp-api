@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import accountType from '@/handler/accountType'
 import account from '@/handler/account'
+import cabcon from '@/handler/cabcon'
 import cabconCode from '@/handler/cabconCode'
 import freezerType from '@/handler/freezerType'
 import freezerStatusType from '@/handler/freezerStatusType'
@@ -46,6 +47,13 @@ routes.get('/cabcon_codes/:id', cabconCode.getById)
 routes.get('/cabcon_codes', cabconCode.get)
 routes.put('/cabcon_codes/:id', cabconCode.update)
 routes.delete('/cabcon_codes/:id', cabconCode.delete)
+
+// Cabcon
+routes.post('/cabcons', cabcon.create)
+routes.get('/cabcons/:id', cabcon.getById)
+routes.get('/cabcons', cabcon.get)
+routes.put('/cabcons/:id', cabcon.update)
+routes.delete('/cabcons/:id', cabcon.delete)
 
 // Account Type
 routes.post('/account_types', accountType.create)
