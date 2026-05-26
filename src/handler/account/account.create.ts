@@ -26,7 +26,7 @@ export default async (c: Context) => {
         })
     }
 
-    const { accountTypeId } = parsed.data
+    const { accountTypeId, associateId } = parsed.data
     const accountType = await db.AccountType.findByPk(accountTypeId)
 
     if (!accountType) {
@@ -35,7 +35,15 @@ export default async (c: Context) => {
         })
     }
 
-    // TODO: if associateId is provided, check if it exists
+    if (associateId) {
+        const associate = await db.Account.findByPk(associateId)
+
+        if (!associate) {
+            throw new HTTPException(StatusCodes.NOT_FOUND, {
+                message: 'Associate not found',
+            })
+        }
+    }
 
     try {
         return c.json({
