@@ -31,7 +31,7 @@ routes.post('/freezers', freezer.create)
 routes.get('/freezers/:id', freezer.getById)
 routes.put('/freezers/:id', freezer.update)
 routes.delete('/freezers/:id', freezer.delete)
-routes.post('/freezers', freezer.get)
+routes.get('/freezers', freezer.get)
 routes.put('/freezers/bulk_update', freezer.bulkUpdate)
 routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
 
