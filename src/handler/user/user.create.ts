@@ -1,8 +1,10 @@
 import type { Context } from 'hono'
 import { HTTPException } from 'hono/http-exception'
 import { StatusCodes, ReasonPhrases } from 'http-status-codes'
+import * as argon2 from 'argon2'
 import db from '@/lib/db'
 import z from 'zod'
+import _ from 'lodash'
 
 const schema = z.object({
     firstName: z.string().nonempty(),
@@ -44,8 +46,13 @@ export default async (c: Context) => {
     }
 
     try {
+        const user = await db.User.create({
+            ...parsed.data,
+            password: await argon2.hash(parsed.data.password),
+        })
+
         return c.json({
-            data: await db.User.create(parsed.data),
+            data: _.omit(user.toJSON(), ['password']),
         })
     } catch (err: any) {
         switch (err.name) {
