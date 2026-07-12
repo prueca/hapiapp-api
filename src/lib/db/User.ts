@@ -41,7 +41,16 @@ const options = {
     timestamps: true,
 }
 
-class User extends Model {}
+class User extends Model {
+    declare id: string
+    declare firstName: string
+    declare middleName: string
+    declare lastName: string
+    declare username: string
+    declare password: string
+    declare roleId: string
+    declare accountId: string
+}
 
 User.init(attributes, options)
 

@@ -26,7 +26,10 @@ const options = {
     ],
 }
 
-class UserRole extends Model {}
+class UserRole extends Model {
+    declare id: string
+    declare role: string
+}
 
 UserRole.init(attributes, options)
 UserRole.sync()

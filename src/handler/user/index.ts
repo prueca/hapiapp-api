@@ -4,4 +4,5 @@ export default {
     getById: (await import('./user.getById')).default,
     update: (await import('./user.update')).default,
     delete: (await import('./user.delete')).default,
+    auth: (await import('./user.auth')).default,
 }

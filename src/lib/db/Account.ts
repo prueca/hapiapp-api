@@ -45,7 +45,17 @@ const options = {
     timestamps: true,
 }
 
-class Account extends Model {}
+class Account extends Model {
+    declare id: string
+    declare name: string
+    declare address: string
+    declare phone: string
+    declare isrCode: string
+    declare sapCode: string
+    declare companyCode: string
+    declare accountTypeId: string
+    declare associateId: string
+}
 
 Account.init(attributes, options)
 
