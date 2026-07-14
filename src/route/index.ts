@@ -76,6 +76,7 @@ routes.get('/users', user.get)
 routes.put('/users/:id', user.update)
 routes.delete('/users/:id', user.delete)
 routes.post('/users/auth', user.auth)
+routes.post('/users/whoami', user.whoami)
 
 // User Role
 routes.post('/user_roles', userRole.create)

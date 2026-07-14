@@ -66,7 +66,6 @@ export default async (c: Context) => {
      * Generate access token
      *
      * Token expires after 30 days
-     * Token always goes to a session cookie
      */
 
     const userRole = await db.UserRole.findByPk(user.roleId)
