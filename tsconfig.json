@@ -2,9 +2,9 @@
     "compilerOptions": {
         "target": "ESNext",
         "module": "commonjs",
-        "moduleResolution": "bundler",
         "strict": true,
         "skipLibCheck": true,
+        "esModuleInterop": true,
         "jsxImportSource": "hono/jsx",
         "rootDir": "./src",
         "outDir": "./build",
@@ -15,5 +15,5 @@
         "allowJs": true,
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", "db", "tests", "build/**/*"]
+    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*"]
 }
