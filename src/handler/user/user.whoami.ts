@@ -20,7 +20,7 @@ export default async (c: Context) => {
         let user = token.verify(accessToken)
         user = _.pick(user, ['firstName', 'middleName', 'lastName', 'role'])
 
-        return c.json(user)
+        return c.json({ data: user })
     } catch {
         return c.json(
             {
