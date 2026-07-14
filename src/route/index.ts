@@ -17,21 +17,21 @@ routes.post('/freezer_types', freezerType.create)
 routes.get('/freezer_types/:id', freezerType.getById)
 routes.put('/freezer_types/:id', freezerType.update)
 routes.delete('/freezer_types/:id', freezerType.delete)
-routes.get('/freezer_types', freezerType.get)
+routes.post('/freezer_types/search', freezerType.search)
 
 // Freezer Status Type
 routes.post('/freezer_status_types', freezerStatusType.create)
 routes.get('/freezer_status_types/:id', freezerStatusType.getById)
 routes.put('/freezer_status_types/:id', freezerStatusType.update)
 routes.delete('/freezer_status_types/:id', freezerStatusType.delete)
-routes.get('/freezer_status_types', freezerStatusType.get)
+routes.post('/freezer_status_types/search', freezerStatusType.search)
 
 // Freezer
 routes.post('/freezers', freezer.create)
 routes.get('/freezers/:id', freezer.getById)
 routes.put('/freezers/:id', freezer.update)
 routes.delete('/freezers/:id', freezer.delete)
-routes.get('/freezers', freezer.get)
+routes.post('/freezers/search', freezer.search)
 routes.put('/freezers/bulk_update', freezer.bulkUpdate)
 routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
 
@@ -39,7 +39,7 @@ routes.delete('/freezers/bulk_delete', freezer.bulkDelete)
 routes.post('/freezer_status', freezerStatus.create)
 routes.get('/freezer_status/:id', freezerStatus.getById)
 routes.put('/freezer_status/:id', freezerStatus.update)
-routes.get('/freezer_status', freezerStatus.get)
+routes.post('/freezer_status/search', freezerStatus.search)
 
 // Account
 routes.post('/accounts', account.create)
