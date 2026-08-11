@@ -1,40 +1,52 @@
 import 'dotenv/config'
-import { parseArgs } from 'node:util'
+import { parseArgs } from 'util'
+import { existsSync } from 'fs'
 import assert from 'assert'
-import mongoist from 'mongoist'
 import _ from 'lodash'
-import accounts from './populate.accounts'
+import { sequelize } from '@/lib/db'
+import account from './populate.account'
 
 const script = {
-    accounts,
+    account,
 }
 
 const main = async () => {
-    const { values } = parseArgs({
-        options: {
-            table: {
-                type: 'string',
-                short: 't',
+    try {
+        await sequelize.sync()
+
+        const { values } = parseArgs({
+            options: {
+                table: {
+                    type: 'string',
+                    short: 't',
+                },
+                source: {
+                    type: 'string',
+                    short: 's',
+                },
             },
-            source: {
-                type: 'string',
-                short: 's',
-            },
-        },
-    })
+        })
 
-    const { table, source } = values
+        const { table, source } = values
 
-    assert(table, 'table is required')
-    assert(source, 'source is required')
+        assert(table, 'table is required')
+        assert(source, 'source is required')
 
-    const db = mongoist(process.env.MONGODB_URI as string)
-    const mock = (await import(source as string)).default
-    const fn = script[table as keyof typeof script]
+        if (!existsSync(source)) {
+            throw new Error('File not found')
+        }
 
-    fn ? await fn(db, mock) : console.log('No such table')
+        const fn = script[table as keyof typeof script]
+        const mock = (await import(source as string)).default
 
-    await db.close()
+        if (!fn) {
+            throw new Error('Not implemented')
+        }
+
+        await fn(mock)
+    } catch (e: any) {
+        console.log(e.message)
+    }
 }
 
 main()

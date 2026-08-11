@@ -34,8 +34,21 @@ const attr = (args?: Record<string, any>) => {
     }
 }
 
+const validator = (nullable = false) => {
+    return (value: string) => {
+        if (nullable && value === null) {
+            return
+        }
+
+        if (!isValid(value)) {
+            throw new Error('Invalid Id')
+        }
+    }
+}
+
 export default {
     isValid,
     generate,
+    validator,
     attr,
 }

@@ -1,4 +1,3 @@
-import AccountType from './AccountType'
 import FreezerStatusType from './FreezerStatusType'
 import FreezerType from './FreezerType'
 import Freezer from './Freezer'
@@ -12,7 +11,6 @@ import Cabcon from './Cabcon'
 
 const models = {
     Account,
-    AccountType,
     FreezerStatusType,
     FreezerType,
     FreezerStatus,

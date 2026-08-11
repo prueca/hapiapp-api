@@ -1,11 +1,17 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
 import ulid from '@/lib/util/ulid'
+import accountTypes from '@/lib/config/account.types'
 
 const attributes = {
-    id: ulid.attr({
+    id: {
+        type: DataTypes.STRING(26),
         primaryKey: true,
-    }),
+        defaultValue: ulid.generate,
+        validate: {
+            isValid: ulid.validator(),
+        },
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -30,12 +36,19 @@ const attributes = {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    accountTypeId: ulid.attr({
-        allowNull: false,
-    }),
-    associateId: ulid.attr({
+    type: DataTypes.ENUM(
+        accountTypes.DISTRIBUTOR,
+        accountTypes.DEALER,
+        accountTypes.FRANCHISEE,
+    ),
+    associateId: {
+        type: DataTypes.STRING(26),
         allowNull: true,
-    }),
+        defaultValue: null,
+        validate: {
+            isValid: ulid.validator(true),
+        },
+    },
 }
 
 const options = {
@@ -47,13 +60,13 @@ const options = {
 
 class Account extends Model {
     declare id: string
+    declare type: string
     declare name: string
     declare address: string
     declare phone: string
     declare isrCode: string
     declare sapCode: string
     declare companyCode: string
-    declare accountTypeId: string
     declare associateId: string
 }
 

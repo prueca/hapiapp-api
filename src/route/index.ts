@@ -62,13 +62,6 @@ routes.get('/cabcons', cabcon.get)
 routes.put('/cabcons/:id', cabcon.update)
 routes.delete('/cabcons/:id', cabcon.delete)
 
-// Account Type
-routes.post('/account_types', accountType.create)
-routes.get('/account_types/:id', accountType.getById)
-routes.get('/account_types', accountType.get)
-routes.put('/account_types/:id', accountType.update)
-routes.delete('/account_types/:id', accountType.delete)
-
 // User
 routes.post('/users', user.create)
 routes.get('/users/:id', user.getById)

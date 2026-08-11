@@ -14,5 +14,5 @@
         "allowJs": true,
     },
     "include": ["src/**/*", "migration/**/*"],
-    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*", "migration/populate.accounts.ts"]
+    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*", "migration/populate.account.ts"]
 }
