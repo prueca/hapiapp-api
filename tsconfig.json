@@ -6,7 +6,6 @@
         "skipLibCheck": true,
         "esModuleInterop": true,
         "jsxImportSource": "hono/jsx",
-        "rootDir": "./src",
         "outDir": "./build",
         "paths": {
             "@/*": [ "./src/*" ],
@@ -14,6 +13,6 @@
         "sourceMap": true,
         "allowJs": true,
     },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*"]
+    "include": ["src/**/*", "migration/**/*"],
+    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*", "migration/populate.accounts.ts"]
 }

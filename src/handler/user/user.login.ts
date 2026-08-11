@@ -32,7 +32,7 @@ export default async (c: Context) => {
         message: 'Invalid username, password or company code',
     })
 
-    let [user, account] = await Promise.all([
+    const [user, account] = await Promise.all([
         db.User.findOne({
             where: { username },
         }),
