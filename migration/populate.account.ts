@@ -93,7 +93,7 @@ const main = async () => {
         })
 
         if (orphaned.length) {
-            throw new Error(`${orphaned.length} orphaned accounts found`)
+            throw new Error(`Found ${orphaned.length} orphaned accounts`)
         }
 
         await txn.commit()

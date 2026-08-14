@@ -6,7 +6,8 @@
     "debug": "tsx --watch --inspect src/app.ts",
     "build": "rm -rf dist && tsup src/app.ts",
     "serve": "yarn build && node dist/app.js",
-    "populate:account": "tsx migration/populate.account.ts"
+    "populate:account": "tsx migration/populate.account.ts",
+    "populate:user": "tsx migration/populate.user.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.14",
