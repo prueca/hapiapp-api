@@ -8,6 +8,7 @@ import sequelize from './sequelize'
 import Account from './Account'
 import CabconCode from './CabconCode'
 import Cabcon from './Cabcon'
+import Access from './Access'
 
 const models = {
     Account,
@@ -19,6 +20,7 @@ const models = {
     User,
     CabconCode,
     Cabcon,
+    Access,
 }
 
 export { sequelize }

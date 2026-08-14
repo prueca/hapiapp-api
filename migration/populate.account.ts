@@ -74,7 +74,7 @@ const main = async () => {
         accounts = await db.Account.bulkCreate(accounts, { transaction: txn })
 
         /**
-         * Check if parent exists
+         * Ensure parent record exists
          */
 
         db.Account.belongsTo(db.Account, {
