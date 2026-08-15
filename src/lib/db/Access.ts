@@ -1,6 +1,8 @@
 import sequelize from './sequelize'
 import { DataTypes, Model } from 'sequelize'
 import ulid from '@/lib/util/ulid'
+import User from './User'
+import Account from './Account'
 
 const attributes = {
     id: {
@@ -42,6 +44,8 @@ class Access extends Model {
     declare id: string
     declare userId: string
     declare accountId: string
+    declare user?: User
+    declare account?: Account
 
     static associate(models: PlainObject) {
         this.belongsTo(models.User, {

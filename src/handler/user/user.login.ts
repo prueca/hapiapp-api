@@ -43,9 +43,7 @@ const setAuthTokenCookie = (c: Context, jwtPayload: PlainObject) => {
 }
 
 const getAccounts = async (user: User) => {
-    type AccessRec = Access & { account: Account }
-
-    let accessRecords = (await Access.findAll({
+    let accessRecords = await Access.findAll({
         where: { userId: user.id },
         include: [
             {
@@ -56,7 +54,7 @@ const getAccounts = async (user: User) => {
         ],
         raw: true,
         nest: true,
-    })) as AccessRec[]
+    })
 
     const accounts = _.map(accessRecords, (x) => {
         return _.pick(x.account, [

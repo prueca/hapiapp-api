@@ -44,12 +44,7 @@ const verifyAuthToken = (c: Context) => {
 }
 
 const verifyAccess = async (username: string, companyCode: string) => {
-    type AccessRec = Access & {
-        user: User
-        account: Account
-    }
-
-    const access = (await Access.findOne({
+    const access = await Access.findOne({
         include: [
             {
                 model: User,
@@ -64,9 +59,9 @@ const verifyAccess = async (username: string, companyCode: string) => {
                 where: { companyCode },
             },
         ],
-    })) as AccessRec
+    })
 
-    if (!access) {
+    if (!access || !access.user || !access.account) {
         throw invalidLogin
     }
 
