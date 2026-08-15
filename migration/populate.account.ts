@@ -10,10 +10,6 @@ import accountTypes from '../src/lib/config/account.types'
 const FRESH = true
 const SOURCE = './mock/accounts.json'
 
-type PlainObject = {
-    [key: string]: any
-}
-
 const main = async () => {
     const txn = await sequelize.transaction()
 
@@ -76,11 +72,6 @@ const main = async () => {
         /**
          * Ensure parent record exists
          */
-
-        db.Account.belongsTo(db.Account, {
-            as: 'parent',
-            foreignKey: 'associateId',
-        })
 
         const orphaned = await db.Account.findAll({
             include: 'parent',

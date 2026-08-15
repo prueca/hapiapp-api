@@ -35,6 +35,7 @@ const attributes = {
     companyCode: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     type: DataTypes.ENUM(
         accountTypes.DISTRIBUTOR,
@@ -68,6 +69,13 @@ class Account extends Model {
     declare sapCode: string
     declare companyCode: string
     declare associateId: string
+
+    static associate(models: PlainObject) {
+        this.belongsTo(models.Account, {
+            as: 'parent',
+            foreignKey: 'associateId',
+        })
+    }
 }
 
 Account.init(attributes, options)

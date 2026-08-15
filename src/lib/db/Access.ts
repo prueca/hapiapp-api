@@ -18,6 +18,7 @@ const attributes = {
         validate: {
             isValid: ulid.validator(true),
         },
+        unique: 'unique_access',
     },
     accountId: {
         type: DataTypes.STRING(26),
@@ -26,6 +27,7 @@ const attributes = {
         validate: {
             isValid: ulid.validator(true),
         },
+        unique: 'unique_access',
     },
 }
 
@@ -40,6 +42,18 @@ class Access extends Model {
     declare id: string
     declare userId: string
     declare accountId: string
+
+    static associate(models: PlainObject) {
+        this.belongsTo(models.User, {
+            as: 'user',
+            foreignKey: 'userId',
+        })
+
+        this.belongsTo(models.Account, {
+            as: 'account',
+            foreignKey: 'accountId',
+        })
+    }
 }
 
 Access.init(attributes, options)

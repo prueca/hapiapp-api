@@ -9,10 +9,6 @@ import userRoles from '../src/lib/config/user.roles'
 const FRESH = true
 const SOURCE = './mock/users.json'
 
-type PlainObject = {
-    [key: string]: any
-}
-
 const main = async () => {
     const txn = await sequelize.transaction()
 

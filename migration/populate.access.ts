@@ -8,10 +8,6 @@ import db, { sequelize } from '../src/lib/db'
 const FRESH = true
 const SOURCE = './mock/users.json'
 
-type PlainObject = {
-    [key: string]: any
-}
-
 const main = async () => {
     const txn = await sequelize.transaction()
 
@@ -43,16 +39,6 @@ const main = async () => {
         )
 
         await db.Access.bulkCreate(access, { transaction: txn })
-
-        db.Access.belongsTo(db.User, {
-            as: 'user',
-            foreignKey: 'userId',
-        })
-
-        db.Access.belongsTo(db.Account, {
-            as: 'account',
-            foreignKey: 'accountId',
-        })
 
         const orphaned = await db.Access.findAll({
             include: [
