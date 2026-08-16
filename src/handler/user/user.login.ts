@@ -118,6 +118,7 @@ export default async (c: Context) => {
      */
 
     const accounts = await getAccounts(user)
+    const data = { accounts }
 
-    return c.json({ data: accounts })
+    return c.json({ data })
 }
