@@ -110,12 +110,13 @@ const setAccessTokenCookie = (c: Context, user: User, account: Account) => {
         })
     }
 
-    const [amount, unit] = match as [
+    const [, amount, unit] = match as [
+        string,
         moment.DurationInputArg1,
         moment.DurationInputArg2,
     ]
 
-    const accessTokenExpiry = moment().add(unit, Number(amount))
+    const accessTokenExpiry = moment().add(Number(amount), unit)
     const isProd = process.env.NODE_ENV === 'production'
 
     const cookieOptions = {

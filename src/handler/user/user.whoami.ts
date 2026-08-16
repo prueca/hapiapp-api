@@ -1,8 +1,11 @@
 import type { Context } from 'hono'
 import { getCookie } from 'hono/cookie'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
-import token from '@/lib/util/token'
+import jwt from 'jsonwebtoken'
 import _ from 'lodash'
+
+import User from '@/lib/db/User'
+import Account from '@/lib/db/Account'
 
 export default async (c: Context) => {
     const accessToken = getCookie(c, 'access-token')
@@ -17,10 +20,19 @@ export default async (c: Context) => {
     }
 
     try {
-        let user = token.verify(accessToken)
-        user = _.pick(user, ['firstName', 'middleName', 'lastName', 'role'])
+        type TokenPayload = {
+            user: User
+            account: Account
+        }
 
-        return c.json({ data: user })
+        let payload = jwt.verify(
+            accessToken,
+            process.env.ACCESS_TOKEN_SECRET as string,
+        ) as TokenPayload
+
+        payload = _.pick(payload, ['user', 'account'])
+
+        return c.json({ data: payload })
     } catch {
         return c.json(
             {
