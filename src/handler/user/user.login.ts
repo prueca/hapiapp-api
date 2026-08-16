@@ -31,15 +31,11 @@ const setAuthTokenCookie = (c: Context, jwtPayload: PlainObject) => {
         },
     )
 
-    const isProd = process.env.NODE_ENV === 'production'
-
-    const cookieOptions = {
+    setCookie(c, 'auth-token', authToken, {
         httpOnly: true,
-        secure: isProd,
-        sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
-    }
-
-    setCookie(c, 'auth-token', authToken, cookieOptions)
+        secure: true,
+        sameSite: 'none',
+    })
 }
 
 const getAccounts = async (user: User) => {

@@ -117,16 +117,13 @@ const setAccessTokenCookie = (c: Context, user: User, account: Account) => {
     ]
 
     const accessTokenExpiry = moment().add(Number(amount), unit)
-    const isProd = process.env.NODE_ENV === 'production'
 
-    const cookieOptions = {
+    setCookie(c, 'access-token', accessToken, {
         httpOnly: true,
-        secure: isProd,
-        sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+        secure: true,
+        sameSite: 'none',
         expires: accessTokenExpiry.toDate(),
-    }
-
-    setCookie(c, 'access-token', accessToken, cookieOptions)
+    })
 }
 
 export default async (c: Context) => {
