@@ -27,7 +27,6 @@ lerna-debug.log*
 # misc
 .DS_Store
 *.sqlite
-config
 build/
 tests/mock
 dist

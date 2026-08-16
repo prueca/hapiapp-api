@@ -1,5 +1,4 @@
-import jwt from 'jsonwebtoken'
-import type { SignOptions } from 'jsonwebtoken'
+import jwt, { SignOptions } from 'jsonwebtoken'
 import assert from 'assert'
 
 const generate = (payload: Record<string, any>) => {

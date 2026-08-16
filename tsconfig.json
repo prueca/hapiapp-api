@@ -14,6 +14,6 @@
         "sourceMap": true,
         "allowJs": true,
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "migration/**/*"],
     "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*"]
 }

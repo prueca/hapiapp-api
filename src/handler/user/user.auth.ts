@@ -1,19 +1,133 @@
 import type { Context } from 'hono'
+import type { SignOptions } from 'jsonwebtoken'
 import { HTTPException } from 'hono/http-exception'
-import { setCookie } from 'hono/cookie'
+import { setCookie, getCookie } from 'hono/cookie'
 import { StatusCodes, ReasonPhrases } from 'http-status-codes'
-import * as argon2 from 'argon2'
 import moment from 'moment'
-import db from '@/lib/db'
-import token from '@/lib/util/token'
+import jwt from 'jsonwebtoken'
 import z from 'zod'
 import _ from 'lodash'
 
+import User from '@/lib/db/User'
+import Account from '@/lib/db/Account'
+import Access from '@/lib/db/Access'
+
 const schema = z.object({
-    username: z.string().nonempty(),
     companyCode: z.string().nonempty(),
-    password: z.string().nonempty(),
 })
+
+const invalidLogin = new HTTPException(StatusCodes.UNAUTHORIZED, {
+    message: 'Invalid user or account',
+})
+
+const verifyAuthToken = (c: Context) => {
+    const authToken = getCookie(c, 'auth-token')
+
+    if (!authToken) {
+        throw invalidLogin
+    }
+
+    try {
+        type TokenPayload = {
+            username: string
+        }
+
+        const payload = jwt.verify(
+            authToken,
+            process.env.AUTH_TOKEN_SECRET as string,
+        ) as TokenPayload
+
+        return payload
+    } catch {
+        throw invalidLogin
+    }
+}
+
+const verifyAccess = async (username: string, companyCode: string) => {
+    const access = await Access.findOne({
+        include: [
+            {
+                model: User,
+                as: 'user',
+                required: true,
+                where: { username },
+            },
+            {
+                model: Account,
+                as: 'account',
+                required: true,
+                where: { companyCode },
+            },
+        ],
+    })
+
+    if (!access || !access.user || !access.account) {
+        throw invalidLogin
+    }
+
+    return {
+        user: access.user,
+        account: access.account,
+    }
+}
+
+const setAccessTokenCookie = (c: Context, user: User, account: Account) => {
+    const jwtPayload = {
+        user: _.pick(user, [
+            'id',
+            'role',
+            'username',
+            'firstName',
+            'middleName',
+            'lastName',
+        ]),
+        account: _.pick(account, [
+            'id',
+            'type',
+            'companyCode',
+            'name',
+            'type',
+            'address',
+        ]),
+    }
+
+    const accessToken = jwt.sign(
+        jwtPayload,
+        process.env.ACCESS_TOKEN_SECRET as string,
+        {
+            expiresIn: process.env
+                .ACCESS_TOKEN_VALIDITY as SignOptions['expiresIn'],
+        },
+    )
+
+    const match = (process.env.ACCESS_TOKEN_VALIDITY as string).match(
+        /^(\d+)([A-Za-z])$/,
+    )
+
+    if (!match) {
+        throw new HTTPException(StatusCodes.INTERNAL_SERVER_ERROR, {
+            message: 'Invalid access token validity',
+        })
+    }
+
+    const [, amount, unit] = match as [
+        string,
+        moment.DurationInputArg1,
+        moment.DurationInputArg2,
+    ]
+
+    const accessTokenExpiry = moment().add(Number(amount), unit)
+    const isProd = process.env.NODE_ENV === 'production'
+
+    const cookieOptions = {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
+        expires: accessTokenExpiry.toDate(),
+    }
+
+    setCookie(c, 'access-token', accessToken, cookieOptions)
+}
 
 export default async (c: Context) => {
     const body = await c.req.json()
@@ -26,76 +140,31 @@ export default async (c: Context) => {
         })
     }
 
-    const { username, companyCode, password } = parsed.data
-
-    const invalidLogin = new HTTPException(StatusCodes.UNAUTHORIZED, {
-        message: 'Invalid username, password or company code',
-    })
-
-    let [user, account] = await Promise.all([
-        db.User.findOne({
-            where: { username },
-        }),
-        db.Account.findOne({
-            where: { companyCode },
-        }),
-    ])
-
     /**
-     * Check if the user and account exist
-     * and if the user is associated with the account
-     */
-
-    const isValidUser = user && account && user.accountId === account.id
-
-    if (!isValidUser) {
-        throw invalidLogin
-    }
-
-    /**
-     * Check if the password is valid
-     */
-
-    const isValidPassword = await argon2.verify(user.password, password)
-
-    if (!isValidPassword) {
-        throw invalidLogin
-    }
-
-    /**
-     * Generate access token
+     * Verify authentication token.
      *
-     * Token expires after 30 days
+     * This returns a payload containing the username.
      */
 
-    const userRole = await db.UserRole.findByPk(user.roleId)
+    const { companyCode } = parsed.data
+    const { username } = verifyAuthToken(c)
 
-    if (!userRole) {
-        throw new HTTPException(StatusCodes.INTERNAL_SERVER_ERROR, {
-            message: 'User role not found',
-        })
-    }
+    /**
+     * Verify access.
+     *
+     * This returns the user and account record.
+     */
 
-    const isProd = process.env.NODE_ENV === 'production'
+    const { user, account } = await verifyAccess(username, companyCode)
 
-    const jwtPayload = _.assign(
-        _.pick(user, ['firstName', 'middleName', 'lastName']),
-        _.pick(userRole, ['role']),
-    )
-    const accessToken = token.generate(jwtPayload)
-    const accessTokenExpiry = moment().add(
-        Number(process.env.ACCESS_TOKEN_VALIDITY),
-        'day',
-    )
+    /**
+     * Generate access token.
+     *
+     * Token expires in 30 days.
+     * Token is stored in an HTTP-only cookie.
+     */
 
-    const cookieOptions = {
-        httpOnly: true,
-        secure: isProd,
-        sameSite: (isProd ? 'none' : 'lax') as 'none' | 'lax',
-        expires: accessTokenExpiry.toDate(),
-    }
+    setAccessTokenCookie(c, user, account)
 
-    setCookie(c, 'access-token', accessToken, cookieOptions)
-
-    return c.json({ data: jwtPayload })
+    return c.json({ success: true })
 }

@@ -1,4 +1,4 @@
-import type { Context } from 'hono'
+import { Context, Next } from 'hono'
 import { getCookie } from 'hono/cookie'
 import { ReasonPhrases, StatusCodes } from 'http-status-codes'
 import jwt from 'jsonwebtoken'
@@ -7,7 +7,7 @@ import _ from 'lodash'
 import User from '@/lib/db/User'
 import Account from '@/lib/db/Account'
 
-export default async (c: Context) => {
+export default async (c: Context, next: Next) => {
     const accessToken = getCookie(c, 'access-token')
 
     if (!accessToken) {
@@ -32,7 +32,10 @@ export default async (c: Context) => {
 
         payload = _.pick(payload, ['user', 'account'])
 
-        return c.json({ data: payload })
+        c.set('user', payload.user)
+        c.set('account', payload.account)
+
+        await next()
     } catch {
         return c.json(
             {

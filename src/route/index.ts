@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import accountType from '@/handler/accountType'
 import account from '@/handler/account'
 import cabcon from '@/handler/cabcon'
 import cabconCode from '@/handler/cabconCode'
@@ -62,20 +61,14 @@ routes.get('/cabcons', cabcon.get)
 routes.put('/cabcons/:id', cabcon.update)
 routes.delete('/cabcons/:id', cabcon.delete)
 
-// Account Type
-routes.post('/account_types', accountType.create)
-routes.get('/account_types/:id', accountType.getById)
-routes.get('/account_types', accountType.get)
-routes.put('/account_types/:id', accountType.update)
-routes.delete('/account_types/:id', accountType.delete)
-
 // User
 routes.post('/users', user.create)
 routes.get('/users/:id', user.getById)
 routes.get('/users', user.get)
 routes.put('/users/:id', user.update)
 routes.delete('/users/:id', user.delete)
-routes.post('/users/auth', user.auth)
+routes.post('/users/login', user.login)
+routes.post('/users/authenticate', user.auth)
 routes.post('/users/whoami', user.whoami)
 
 // User Role
