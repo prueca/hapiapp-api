@@ -3,7 +3,6 @@ import FreezerStatusType from './FreezerStatusType'
 import FreezerType from './FreezerType'
 import Freezer from './Freezer'
 import FreezerStatus from './FreezerStatus'
-import UserRole from './UserRole'
 import User from './User'
 import sequelize from './sequelize'
 import Account from './Account'
@@ -17,7 +16,6 @@ const models = {
     FreezerType,
     FreezerStatus,
     Freezer,
-    UserRole,
     User,
     CabconCode,
     Cabcon,
@@ -38,6 +36,19 @@ _.values(models).map((model) => {
     assoc = assoc.bind(model)
     assoc(models)
 })
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('DB connection has been established successfully.')
+
+        return sequelize.sync({
+            force: process.env.DB_FORCE === '1',
+        })
+    })
+    .catch((error: Error) => {
+        console.error('Unable to connect to the database:', error)
+    })
 
 export { sequelize }
 export default models

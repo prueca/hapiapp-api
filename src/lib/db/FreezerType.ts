@@ -15,7 +15,7 @@ const attributes = {
         allowNull: false,
     },
     year: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     capacity: {
@@ -41,6 +41,5 @@ const options = {
 class FreezerType extends Model {}
 
 FreezerType.init(attributes, options)
-FreezerType.sync()
 
 export default FreezerType

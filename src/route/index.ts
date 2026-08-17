@@ -6,7 +6,6 @@ import freezerType from '@/handler/freezerType'
 import freezerStatusType from '@/handler/freezerStatusType'
 import freezer from '@/handler/freezer'
 import freezerStatus from '@/handler/freezerStatus'
-import userRole from '@/handler/userRole'
 import user from '@/handler/user'
 
 const routes = new Hono()
@@ -70,12 +69,5 @@ routes.delete('/users/:id', user.delete)
 routes.post('/users/login', user.login)
 routes.post('/users/authenticate', user.auth)
 routes.post('/users/whoami', user.whoami)
-
-// User Role
-routes.post('/user_roles', userRole.create)
-routes.get('/user_roles/:id', userRole.getById)
-routes.post('/user_roles/search', userRole.search)
-routes.put('/user_roles/:id', userRole.update)
-routes.delete('/user_roles/:id', userRole.delete)
 
 export default routes

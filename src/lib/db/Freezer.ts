@@ -23,6 +23,5 @@ const options = {
 class Freezer extends Model {}
 
 Freezer.init(attributes, options)
-Freezer.sync()
 
 export default Freezer
