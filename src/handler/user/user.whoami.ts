@@ -8,7 +8,18 @@ import User from '@/lib/db/User'
 import Account from '@/lib/db/Account'
 
 export default async (c: Context) => {
-    const accessToken = getCookie(c, 'access-token')
+    const authorization = c.req.header('Authorization')
+
+    if (!authorization?.startsWith('Bearer ')) {
+        return c.json(
+            {
+                message: ReasonPhrases.UNAUTHORIZED,
+            },
+            StatusCodes.UNAUTHORIZED,
+        )
+    }
+
+    const [, accessToken] = authorization.split(' ')
 
     if (!accessToken) {
         return c.json(
