@@ -68,6 +68,7 @@ routes.put('/users/:id', user.update)
 routes.delete('/users/:id', user.delete)
 routes.post('/users/login', user.login)
 routes.post('/users/authenticate', user.auth)
+routes.post('/users/logout', user.logout)
 routes.post('/users/whoami', user.whoami)
 
 export default routes
