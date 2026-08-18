@@ -6,5 +6,6 @@ export default {
     delete: (await import('./user.delete')).default,
     login: (await import('./user.login')).default,
     auth: (await import('./user.auth')).default,
+    logout: (await import('./user.logout')).default,
     whoami: (await import('./user.whoami')).default,
 }
