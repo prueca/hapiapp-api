@@ -121,8 +121,8 @@ const setAccessTokenCookie = (c: Context, user: User, account: Account) => {
     setCookie(c, 'access-token', accessToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',
-        expires: accessTokenExpiry.toDate(),
+        sameSite: 'lax',
+        maxAge: accessTokenExpiry.diff(moment(), 's'),
     })
 }
 

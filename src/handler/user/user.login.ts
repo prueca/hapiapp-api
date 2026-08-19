@@ -34,7 +34,7 @@ const setAuthTokenCookie = (c: Context, jwtPayload: PlainObject) => {
     setCookie(c, 'auth-token', authToken, {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',
+        sameSite: 'lax',
     })
 }
 
@@ -101,7 +101,7 @@ export default async (c: Context) => {
     }
 
     /**
-     * Generate authentication token.
+     * Generate authorization token.
      *
      * Token is stored in an HTTP-only cookie.
      * Token expires in 5 minutes.
