@@ -1,19 +1,21 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "module": "commonjs",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "strict": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
         "jsxImportSource": "hono/jsx",
         "rootDir": "./src",
-        "outDir": "./build",
+        "outDir": "./dist",
         "paths": {
             "@/*": [ "./src/*" ],
         },
         "sourceMap": true,
         "allowJs": true,
+        "types": ["node"],
     },
     "include": ["src/**/*", "migration/**/*"],
-    "exclude": ["node_modules", "db", "tests", "build/**/*", "dist/**/*"]
+    "exclude": ["node_modules", "tests", "dist/**/*"]
 }
