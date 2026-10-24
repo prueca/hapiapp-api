@@ -1,13 +1,13 @@
 import { Context } from 'hono'
-import { HTTPException } from 'hono/http-exception'
 import { setCookie } from 'hono/cookie'
-import z from 'zod'
-import * as argon2 from 'argon2'
+import Boom from '@hapi/boom'
 import jwt, { type SignOptions } from 'jsonwebtoken'
+import * as argon2 from 'argon2'
+import z from 'zod'
 import _ from 'lodash'
 
 import env from '@/lib/env'
-import errors from '@/lib/errors'
+import input from '@/lib/input'
 
 import db from '@/lib/db'
 import * as t from '@/lib/db/schema'
@@ -18,22 +18,8 @@ const schema = z.object({
     password: z.string().nonempty(),
 })
 
-const invalidLogin = new HTTPException(401, {
-    message: 'Invalid username or password.',
-})
-
 export default async (c: Context) => {
-    const payload = await c.req.json()
-    const parsed = schema.safeParse(payload)
-
-    if (!parsed.success) {
-        throw new HTTPException(400, {
-            message: errors.INVALID_PAYLOAD.message,
-            cause: parsed.error.issues,
-        })
-    }
-
-    const { username, password } = parsed.data
+    const { username, password } = await input(c, schema)
 
     /**
      * Check if user exists by username.
@@ -50,7 +36,7 @@ export default async (c: Context) => {
         .limit(1)
 
     if (!user) {
-        throw invalidLogin
+        throw Boom.unauthorized('Invalid username or password.')
     }
 
     /**
@@ -60,7 +46,7 @@ export default async (c: Context) => {
     const isValidPassword = await argon2.verify(user.password, password)
 
     if (!isValidPassword) {
-        throw invalidLogin
+        throw Boom.unauthorized('Invalid username or password.')
     }
 
     /**

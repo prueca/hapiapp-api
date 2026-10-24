@@ -14,6 +14,10 @@ const schema = z.object({
     AUTHORIZATION_TOKEN_SECRET: z.string(),
     AUTHORIZATION_TOKEN_VALIDITY: z.string(),
     AUTHORIZATION_TOKEN_COOKIE: z.string(),
+
+    ACCESS_TOKEN_COOKIE: z.string(),
+    ACCESS_TOKEN_SECRET: z.string(),
+    ACCESS_TOKEN_VALIDITY: z.string(),
 })
 
 const env = schema.parse(process.env)
