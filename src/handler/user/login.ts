@@ -9,8 +9,7 @@ import _ from 'lodash'
 import env from '@/lib/env'
 import input from '@/lib/input'
 
-import db from '@/lib/db'
-import * as t from '@/lib/db/schema'
+import db, { t } from '@/lib/db'
 import { eq, and, isNull } from 'drizzle-orm'
 
 const schema = z.object({

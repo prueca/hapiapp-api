@@ -24,4 +24,5 @@ const authenticate = async () => {
 
 authenticate()
 
+export * as t from './schema'
 export default db

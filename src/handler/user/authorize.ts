@@ -9,8 +9,7 @@ import _ from 'lodash'
 import input from '@/lib/input'
 import env from '@/lib/env'
 
-import db from '@/lib/db'
-import * as t from '@/lib/db/schema'
+import db, { t } from '@/lib/db'
 import { eq } from 'drizzle-orm'
 
 type TokenPayload = {
