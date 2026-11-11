@@ -20,4 +20,11 @@ routes.post(
     accounts.update,
 )
 
+routes.post(
+    '/search',
+    auth,
+    allow(userRoles.DISTRIBUTOR_ADMIN),
+    accounts.search,
+)
+
 export default routes
