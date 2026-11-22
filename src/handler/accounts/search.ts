@@ -43,5 +43,5 @@ export default async (c: Context) => {
         )
         .orderBy(desc(t.account.createdAt), asc(t.account.name))
 
-    return c.json({ items })
+    return c.json({ data: items })
 }

@@ -130,5 +130,10 @@ export default async (c: Context) => {
 
     authorize(c, user, account)
 
-    return c.json({ user, account })
+    return c.json({
+        data: {
+            user,
+            account,
+        },
+    })
 }

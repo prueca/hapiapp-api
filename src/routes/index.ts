@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 
-import login from '../handler/user/login'
-import authorize from '../handler/user/authorize'
+import login from '../handler/users/login'
+import authorize from '../handler/users/authorize'
 import accounts from './accounts'
 
 const routes = new Hono()

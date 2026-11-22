@@ -73,7 +73,7 @@ export default async (c: Context) => {
             return newAccount
         })
 
-        return c.json({ account })
+        return c.json({ data: account })
     } catch (error: any) {
         const code = _.get(error, 'cause.code', null)
 

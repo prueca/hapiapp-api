@@ -77,7 +77,7 @@ export default async (c: Context) => {
             throw Boom.notFound('Account was not found.')
         }
 
-        return c.json({ account })
+        return c.json({ data: account })
     } catch (error: any) {
         if (Boom.isBoom(error)) throw error
 
