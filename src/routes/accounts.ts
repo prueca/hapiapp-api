@@ -13,6 +13,8 @@ routes.post(
     accounts.create,
 )
 
+routes.post('/fetch', auth, allow(userRoles.DISTRIBUTOR_ADMIN), accounts.fetch)
+
 routes.post(
     '/update',
     auth,
