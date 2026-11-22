@@ -16,9 +16,8 @@ const authenticate = async () => {
     try {
         await db.execute('SELECT 1')
         console.log('Database connection established.')
-    } catch (e: any) {
-        console.log(`Error connecting to database: ${e.message}`)
-        console.log(e.stack)
+    } catch (err: any) {
+        console.log(`Error connecting to database:`, err)
     }
 }
 

@@ -27,4 +27,11 @@ routes.post(
     accounts.search,
 )
 
+routes.post(
+    '/delete',
+    auth,
+    allow(userRoles.DISTRIBUTOR_ADMIN),
+    accounts.delete,
+)
+
 export default routes
