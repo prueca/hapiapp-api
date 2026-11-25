@@ -1,13 +1,11 @@
 import { Hono } from 'hono'
 
-import login from '../handler/users/login'
-import authorize from '../handler/users/authorize'
+import auth from './auth'
 import accounts from './accounts'
 
 const routes = new Hono()
 
-routes.post('/login', login)
-routes.post('/authorize', authorize)
+routes.route('/auth', auth)
 routes.route('/accounts', accounts)
 
 export default routes

@@ -74,8 +74,8 @@ export default async (c: Context) => {
         })
 
         return c.json({ data: account })
-    } catch (error: any) {
-        const code = _.get(error, 'cause.code', null)
+    } catch (err: any) {
+        const code = _.get(err, 'cause.code', null)
 
         switch (code) {
             case '23505':
