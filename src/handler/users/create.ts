@@ -29,7 +29,7 @@ const schema = z.object({
 
 const fetchAccount = async (authAccountId: string, accountId: string) => {
     // This function ensures that we are creating a user for account
-    // that is under the same tree.
+    // that is within the scope.
 
     const parent = alias(t.account, 'parent')
 
@@ -51,7 +51,7 @@ const fetchAccount = async (authAccountId: string, accountId: string) => {
         .limit(1)
 
     if (!account) {
-        throw Boom.unauthorized('Account must be within the same tree.')
+        throw Boom.unauthorized('Account must be within the scope.')
     }
 
     return account

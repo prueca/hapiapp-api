@@ -8,6 +8,7 @@ import userRoles from '@/lib/user.roles'
 import input from '@/lib/input'
 
 import db, { t } from '@/lib/db'
+import { eq } from 'drizzle-orm'
 
 const schema = z.object({
     type: z.enum([
@@ -55,7 +56,21 @@ export default async (c: Context) => {
     })
 
     try {
-        const account = await db.transaction(async (txn) => {
+        // Check account existence by name.
+        // A duplicate name should not proceed.
+        // Name uniqueness is case-sensitive.
+
+        let [account] = await db
+            .select()
+            .from(t.account)
+            .where(eq(t.account.name, data.name))
+            .limit(1)
+
+        if (account) {
+            throw Boom.conflict('Account name is taken.')
+        }
+
+        account = await db.transaction(async (txn) => {
             const [newAccount] = await txn
                 .insert(t.account)
                 .values(data)
@@ -75,6 +90,8 @@ export default async (c: Context) => {
 
         return c.json({ data: account })
     } catch (err: any) {
+        if (Boom.isBoom(err)) throw err
+
         const code = _.get(err, 'cause.code', null)
 
         switch (code) {
